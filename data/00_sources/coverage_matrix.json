@@ -1,0 +1,47 @@
+{
+  "generated_at": "2026-11-07T21:46:02.365333+00:00",
+  "source_count": 17,
+  "coverage": {
+    "hdfc-elss-tax-saver-fund-direct-plan-growth": {
+      "expense_ratio": "verified",
+      "exit_load": "verified",
+      "min_sip": "verified",
+      "lock_in": "verified",
+      "riskometer": "verified",
+      "benchmark": "verified"
+    },
+    "hdfc-flexi-cap-direct-plan-growth": {
+      "expense_ratio": "verified",
+      "exit_load": "verified",
+      "min_sip": "verified",
+      "riskometer": "verified",
+      "benchmark": "verified"
+    },
+    "hdfc-large-cap-fund-direct-growth": {
+      "expense_ratio": "verified",
+      "exit_load": "verified",
+      "min_sip": "verified",
+      "riskometer": "verified",
+      "benchmark": "verified"
+    },
+    "hdfc-mid-cap-fund-direct-growth": {
+      "expense_ratio": "verified",
+      "exit_load": "verified",
+      "min_sip": "verified",
+      "riskometer": "verified",
+      "benchmark": "verified"
+    },
+    "hdfc-mutual-fund": {
+      "amc_overview": "verified",
+      "statement_process": "verified"
+    },
+    "hdfc-mutual-fund-overview": {
+      "amc_overview": "seed_only"
+    }
+  },
+  "missing_facts": [],
+  "fact_status_counts": {
+    "seed_only": 22,
+    "verified": 23
+  }
+}

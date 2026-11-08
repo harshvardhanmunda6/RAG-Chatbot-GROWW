@@ -1,0 +1,127 @@
+app:
+  title: "HDFC Mutual Fund Facts Assistant"
+  max_question_chars: 500
+  max_answer_sentences: 3
+  disclaimer: "Facts-only. No investment advice."
+
+pipeline:
+  phase: "step_8_eval_docs_ui"
+  version: "1.1"
+
+paths:
+  sources: "data/00_sources"
+  raw: "data/01_raw"
+  clean: "data/02_clean"
+  chunks: "data/03_chunks"
+  embeddings: "data/04_embeddings"
+  vector: "data/05_vector"
+  retrieval: "data/06_retrieval"
+  answers: "data/07_answers"
+  evaluation: "data/08_eval"
+  logs: "data/logs"
+
+sources:
+  registry: "data/00_sources/sources.csv"
+  strict_seed_only: false
+  min_total_sources: 15
+  max_total_sources: 25
+  min_official_sources: 10
+  allowed_domains:
+    - "groww.in"
+    - "hdfcfund.com"
+    - "sebi.gov.in"
+    - "amfiindia.com"
+    - "camsonline.com"
+    - "kfintech.com"
+  allowed_citation_types:
+    - "amc"
+    - "sebi"
+    - "amfi"
+    - "registrar"
+  request_timeout_s: 60
+  min_delay_s: 1.0
+  retries: 2
+  respect_robots: true
+  user_agent: "MF-facts-demo/1.1 (public-research; local-demo)"
+  # HDFC AMC blocks direct HTML requests from this environment with HTTP 403.
+  # The public Jina reader is used as a read-only transport only; the official
+  # URL remains the canonical source URL and the only citation target.
+  fetch_proxy:
+    enabled: true
+    hosts:
+      - "www.hdfcfund.com"
+      - "hdfcfund.com"
+    prefix: "https://r.jina.ai/"
+    return_format: "html"
+  seed_urls:
+    - "https://groww.in/mutual-funds/amc/hdfc-mutual-funds"
+    - "https://groww.in/mutual-funds/hdfc-large-cap-fund-direct-growth"
+    - "https://groww.in/mutual-funds/hdfc-equity-fund-direct-growth"
+    - "https://groww.in/mutual-funds/hdfc-elss-tax-saver-fund-direct-plan-growth"
+    - "https://groww.in/mutual-funds/hdfc-mid-cap-fund-direct-growth"
+
+chunking:
+  fact_card_max_tokens: 96
+  narrative_tokens: 200
+  overlap_tokens: 30
+  hard_max_tokens: 240
+
+embedding:
+  model: "sentence-transformers/all-MiniLM-L6-v2"
+  revision: null
+  device: "cpu"
+  batch_size: 32
+  normalize: true
+  max_seq_length: 256
+  embed_scope: "all"
+
+vector_db:
+  provider: "chroma"
+  persist_dir: "data/05_vector/chroma"
+  collection_prefix: "mf_facts_v1"
+  distance: "cosine"
+
+retrieval:
+  top_k: 12
+  final_k: 4
+  min_similarity: 0.30
+  mmr_lambda: 0.70
+  exact_fact_boost: 0.05
+
+llm:
+  provider: "groq"
+  provider_env: "LLM_PROVIDER"
+  api_key_env: "GROQ_API_KEY"
+  model_env: "LLM_MODEL"
+  base_url: "https://api.groq.com/openai/v1"
+  temperature: 0.1
+  max_tokens: 220
+  timeout_s: 30
+  fallback: "extractive"
+  providers:
+    groq:
+      api_key_env: "GROQ_API_KEY"
+      base_url: "https://api.groq.com/openai/v1"
+    openai:
+      api_key_env: "OPENAI_API_KEY"
+      base_url: "https://api.openai.com/v1"
+    mistral:
+      api_key_env: "MISTRAL_API_KEY"
+      base_url: "https://api.mistral.ai/v1"
+    gemini:
+      api_key_env: "GEMINI_API_KEY"
+      base_url: "https://generativelanguage.googleapis.com/v1beta"
+    anthropic:
+      api_key_env: "ANTHROPIC_API_KEY"
+      base_url: "https://api.anthropic.com"
+
+answer:
+  require_citation: true
+  allow_extractive_fallback: true
+  date_format: "%Y-%m-%d"
+  max_answer_chars: 600
+
+guardrails:
+  block_pii: true
+  block_advice: true
+  block_performance: true

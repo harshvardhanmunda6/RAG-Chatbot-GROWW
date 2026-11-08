@@ -1,0 +1,15 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+.pytest_cache/
+.pytest_tmp/
+data/01_raw/*
+data/02_clean/*
+data/03_chunks/*
+data/04_embeddings/*
+data/05_vector/*
+data/06_retrieval/*
+data/07_answers/*
+data/08_eval/*
+!data/**/.gitkeep
