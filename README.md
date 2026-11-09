@@ -84,6 +84,30 @@ streamlit run app.py
 
 Open `http://localhost:8501`.
 
+## Deploy on Render
+
+The repository includes the prebuilt retrieval artifacts under `data/03_chunks/`, `data/04_embeddings/`, `data/05_vector/`, and `data/08_eval/`, so a Render deploy does not need to re-run ingestion. Raw HTML snapshots and query logs remain local-only.
+
+Use a Render Blueprint with [render.yaml](render.yaml), or create a Web Service with these settings:
+
+| Setting | Value |
+|---|---|
+| Root Directory | Leave blank (repository root) |
+| Build Command | `pip install --upgrade pip && pip install -r requirements.txt` |
+| Start Command | `streamlit run app.py --server.address 0.0.0.0 --server.port $PORT --server.headless true` |
+| Health Check Path | `/_stcore/health` |
+
+Set these environment variables:
+
+```text
+PYTHON_VERSION=3.12.8
+LLM_PROVIDER=gemini
+LLM_MODEL=gemini-3.5-flash-lite
+GEMINI_API_KEY=<your-secret-key>
+```
+
+Keep `GEMINI_API_KEY` as a Render secret. The free 512 MB plan may not have enough memory for Streamlit, PyTorch, MiniLM, and ChromaDB; use a 2 GB instance if the service runs out of memory.
+
 ## CLI
 
 | Command | Purpose |

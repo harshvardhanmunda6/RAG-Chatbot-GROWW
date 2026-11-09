@@ -1,0 +1,48 @@
+{
+  "source_id": "official_hdfc_amc",
+  "url": "https://www.hdfcfund.com/",
+  "final_url": "https://www.hdfcfund.com/",
+  "title": "HDFC Mutual Fund",
+  "publisher": "HDFC Asset Management Company Limited",
+  "source_type": "amc",
+  "citable": true,
+  "scheme_slugs": [],
+  "status": "cleaned",
+  "http_status": 200,
+  "fetched_at": "2026-11-07T21:44:59.609016Z",
+  "content_hash": "sha256:5b7495012ce3029d46a93fe8ebc2b8e924a494f5753ae0654b31bd2bc63c3587",
+  "clean_text_hash": "sha256:8fafe3d37c08c246f174886f39ac1e6fda82ca39883c7237cc52e38159a50351",
+  "sections": [
+    {
+      "section_id": "overview",
+      "heading": "AMC overview",
+      "text": "HDFC Mutual Fund. Join 1.7 Crore+ investors who trust HDFC Mutual Fund. Disciplined mutual fund investing for your goals.",
+      "order": 1
+    },
+    {
+      "section_id": "key_information",
+      "heading": "Key information",
+      "text": "SEBI registration: MF/044/00/6",
+      "order": 2
+    }
+  ],
+  "removed_sections": [
+    "fund list",
+    "returns",
+    "performance",
+    "calculators",
+    "new fund offering",
+    "footer"
+  ],
+  "clean_text": "AMC overview: HDFC Mutual Fund. Join 1.7 Crore+ investors who trust HDFC Mutual Fund. Disciplined mutual fund investing for your goals.\n\nKey information: SEBI registration: MF/044/00/6",
+  "metadata": {
+    "requested_url": "https://www.hdfcfund.com/",
+    "final_url": "https://www.hdfcfund.com/",
+    "parser": "hdfc_amc",
+    "page_type": "amc_overview",
+    "fetch_via": "jina_proxy",
+    "links_followed": 0,
+    "internal_links_discovered": 0,
+    "retrieved_at": "2026-11-07T21:44:59.609016+00:00"
+  }
+}

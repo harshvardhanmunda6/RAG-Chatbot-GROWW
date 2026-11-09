@@ -1,0 +1,47 @@
+{
+  "source_id": "seed_hdfc_amc",
+  "url": "https://groww.in/mutual-funds/amc/hdfc-mutual-funds",
+  "final_url": "https://groww.in/mutual-funds/amc/hdfc-mutual-funds",
+  "title": "HDFC Mutual Fund overview",
+  "publisher": "Groww",
+  "source_type": "seed",
+  "citable": false,
+  "scheme_slugs": [],
+  "status": "cleaned",
+  "http_status": 200,
+  "fetched_at": "2026-11-07T21:44:43.303454Z",
+  "content_hash": "sha256:66ec8f3f2a80a5f11ed0031d4f6f00cafd6990f0bf138f0653e7cf9f845d3bc3",
+  "clean_text_hash": "sha256:f956d5ecae05cf759b96f40cffcff2226402baaec0a2e548cf08444745dc58a4",
+  "sections": [
+    {
+      "section_id": "overview",
+      "heading": "AMC overview",
+      "text": "HDFC Mutual Fund AUM ₹9,34,075.66Cr No of Schemes 84 AMC Age 26 years",
+      "order": 1
+    },
+    {
+      "section_id": "key_information",
+      "heading": "Key information",
+      "text": "Mutual fund name: HDFC Mutual Fund; Asset management company name: HDFC Mutual Fund; AMC Incorporation Date: 10 Dec 1999; Sponsor name: HDFC Ltd.; Trustee organisation: HDFC Trustee Company Ltd; Name of trustees: Mr. Vimal Bhandari (Chairman); CIO: Head – Equities: Chirag Setalvad, Head – Fixed Income: Shobhit Mehrotra; MD: Mr. Navneet Munot; CEO: Navneet Munot(Chief Executive Officer); Compliance Officer: Ms. Supriya Sapre; Investor Service Officer: Mr. Sameer Sakseria; Total AUM (as of end of last quarter): ₹9,34,075.66Cr; Address: \"HDFC House\", 2nd Floor, H. T. Parekh Marg, 165-166, BackbayReclamation, Churchgate Mumbai 400020",
+      "order": 2
+    }
+  ],
+  "removed_sections": [
+    "fund list",
+    "returns calculator",
+    "performance writeups",
+    "other AMCs",
+    "footer"
+  ],
+  "clean_text": "AMC overview: HDFC Mutual Fund AUM ₹9,34,075.66Cr No of Schemes 84 AMC Age 26 years\n\nKey information: Mutual fund name: HDFC Mutual Fund; Asset management company name: HDFC Mutual Fund; AMC Incorporation Date: 10 Dec 1999; Sponsor name: HDFC Ltd.; Trustee organisation: HDFC Trustee Company Ltd; Name of trustees: Mr. Vimal Bhandari (Chairman); CIO: Head – Equities: Chirag Setalvad, Head – Fixed Income: Shobhit Mehrotra; MD: Mr. Navneet Munot; CEO: Navneet Munot(Chief Executive Officer); Compliance Officer: Ms. Supriya Sapre; Investor Service Officer: Mr. Sameer Sakseria; Total AUM (as of end of last quarter): ₹9,34,075.66Cr; Address: \"HDFC House\", 2nd Floor, H. T. Parekh Marg, 165-166, BackbayReclamation, Churchgate Mumbai 400020",
+  "metadata": {
+    "requested_url": "https://groww.in/mutual-funds/amc/hdfc-mutual-funds",
+    "final_url": "https://groww.in/mutual-funds/amc/hdfc-mutual-funds",
+    "parser": "groww_html_sections",
+    "page_type": "amc_overview",
+    "fetch_via": "direct",
+    "links_followed": 0,
+    "internal_links_discovered": 0,
+    "retrieved_at": "2026-11-07T21:44:43.303454+00:00"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "source_id": "seed_hdfc_large_cap",
+  "requested_url": "https://groww.in/mutual-funds/hdfc-large-cap-fund-direct-growth",
+  "source_type": "seed",
+  "publisher": "Groww",
+  "title": "HDFC Large Cap Fund Direct Growth",
+  "scheme_slugs": [
+    "hdfc-large-cap-fund-direct-growth"
+  ],
+  "notes": "Seed only; not citable; cross-check only",
+  "links_followed": 0,
+  "internal_links_discovered": 0,
+  "status": "ok",
+  "final_url": "https://groww.in/mutual-funds/hdfc-large-cap-fund-direct-growth",
+  "http_status": 200,
+  "content_type": "text/html; charset=utf-8",
+  "content_length_header": null,
+  "bytes_written": 460726,
+  "content_hash": "sha256:81345209c5a8993cc4c48dbad78bdfcb5d7779460c8d1d3575f363dd748324d6",
+  "fetched_at": "2026-11-07T21:44:44.936333+00:00",
+  "parser": "html",
+  "fetch_via": "direct",
+  "redirect_history": [],
+  "raw_path": "data/01_raw/seed_hdfc_large_cap.html"
+}

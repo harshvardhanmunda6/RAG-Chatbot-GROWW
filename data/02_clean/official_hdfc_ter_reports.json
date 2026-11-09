@@ -1,0 +1,35 @@
+{
+  "source_id": "official_hdfc_ter_reports",
+  "url": "https://www.hdfcfund.com/statutory-disclosure/total-expense-ratio-of-mutual-fund-schemes/reports",
+  "final_url": "https://www.hdfcfund.com/statutory-disclosure/total-expense-ratio-of-mutual-fund-schemes/reports",
+  "title": "HDFC Mutual Fund Total Expense Ratio Reports",
+  "publisher": "HDFC Asset Management Company Limited",
+  "source_type": "amc",
+  "citable": false,
+  "scheme_slugs": [],
+  "status": "cleaned",
+  "http_status": 200,
+  "fetched_at": "2026-11-07T21:45:24.662135Z",
+  "content_hash": "sha256:13043dc49eeb5180c6974593903e966f18f23eab16a1286d9487842c16f17895",
+  "clean_text_hash": "sha256:57dbb7e748c82a0f716c15a07fe64d3ef097c71878ea78b6a27f0b88b191d929",
+  "sections": [
+    {
+      "section_id": "section_1",
+      "heading": "Total Expense Ratio",
+      "text": "Total Expense Ratio of Mutual Fund Schemes Notices TER Report for November, 2026 - 2027",
+      "order": 1
+    }
+  ],
+  "removed_sections": [],
+  "clean_text": "Total Expense Ratio: Total Expense Ratio of Mutual Fund Schemes Notices TER Report for November, 2026 - 2027",
+  "metadata": {
+    "requested_url": "https://www.hdfcfund.com/statutory-disclosure/total-expense-ratio-of-mutual-fund-schemes/reports",
+    "final_url": "https://www.hdfcfund.com/statutory-disclosure/total-expense-ratio-of-mutual-fund-schemes/reports",
+    "parser": "generic_official",
+    "page_type": "official_education",
+    "fetch_via": "jina_proxy",
+    "links_followed": 0,
+    "internal_links_discovered": 0,
+    "retrieved_at": "2026-11-07T21:45:24.662135+00:00"
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "source_id": "official_hdfc_mid_cap",
+  "url": "https://www.hdfcfund.com/explore/mutual-funds/hdfc-mid-cap-fund/direct",
+  "final_url": "https://www.hdfcfund.com/explore/mutual-funds/hdfc-mid-cap-fund/direct",
+  "title": "HDFC Mid Cap Fund Direct Growth",
+  "publisher": "HDFC Asset Management Company Limited",
+  "source_type": "amc",
+  "citable": true,
+  "scheme_slugs": [
+    "hdfc-mid-cap-fund-direct-growth"
+  ],
+  "status": "cleaned",
+  "http_status": 200,
+  "fetched_at": "2026-11-07T21:45:13.304210Z",
+  "content_hash": "sha256:fe4375177fb6286aa9b386d24b68374bded3c4b199104673dc5e6bb6e74826b1",
+  "clean_text_hash": "sha256:bd683f0e92284421a532212465c2da4c2833e072d98062e911bba6f6cc0c346c",
+  "sections": [
+    {
+      "section_id": "overview",
+      "heading": "Scheme overview",
+      "text": "About HDFC Mid Cap Fund An open ended equity scheme predominantly investing in mid cap stocks. The Scheme shall follow a predominantly Mid cap strategy with a minimum exposure of 65% to Mid-Cap stocks. The Scheme may also seek participation in other equity and equity related securities to achieve optimal portfolio construction. The aim of equity strategy will be to predominantly build a portfolio of mid-cap companies which have: a) reasonable growth prospects b) sound financial strength c) sustainable business models d) acceptable valuation that offers potential for capital appreciation.",
+      "order": 1
+    },
+    {
+      "section_id": "key_facts",
+      "heading": "Key facts",
+      "text": "Expense ratio 0.74% Min SIP ₹ 100 Riskometer Very High Risk Fund benchmark NIFTY Midcap 150 Index (Total Returns Index) Lock-in NA",
+      "order": 2
+    },
+    {
+      "section_id": "minimum_investments",
+      "heading": "Minimum investments",
+      "text": "Minimum SIP: ₹ 100",
+      "order": 3
+    },
+    {
+      "section_id": "exit_load",
+      "heading": "Exit load",
+      "text": "Exit load: In respect of each purchase/switch-in of Units, an Exit Load of 1.00% is payable if Units are redeemed/switched-out within 1 year from the date of allotment. ● No Exit Load is payable if Units are redeemed/switched-out after 1 year from the date of allotment. No Entry/Exit Load shall be levied on bonus units and units allotted on dividend reinvestment",
+      "order": 4
+    },
+    {
+      "section_id": "about_benchmark",
+      "heading": "About the scheme and benchmark",
+      "text": "Fund benchmark NIFTY Midcap 150 Index (Total Returns Index)",
+      "order": 5
+    }
+  ],
+  "removed_sections": [
+    "returns since inception",
+    "scheme returns",
+    "benchmark returns",
+    "returns and rankings",
+    "fund managers",
+    "portfolio allocation and top holdings",
+    "downloads",
+    "faqs",
+    "product labelling"
+  ],
+  "clean_text": "Scheme overview: About HDFC Mid Cap Fund An open ended equity scheme predominantly investing in mid cap stocks. The Scheme shall follow a predominantly Mid cap strategy with a minimum exposure of 65% to Mid-Cap stocks. The Scheme may also seek participation in other equity and equity related securities to achieve optimal portfolio construction. The aim of equity strategy will be to predominantly build a portfolio of mid-cap companies which have: a) reasonable growth prospects b) sound financial strength c) sustainable business models d) acceptable valuation that offers potential for capital appreciation.\n\nKey facts: Expense ratio 0.74% Min SIP ₹ 100 Riskometer Very High Risk Fund benchmark NIFTY Midcap 150 Index (Total Returns Index) Lock-in NA\n\nMinimum investments: Minimum SIP: ₹ 100\n\nExit load: Exit load: In respect of each purchase/switch-in of Units, an Exit Load of 1.00% is payable if Units are redeemed/switched-out within 1 year from the date of allotment. ● No Exit Load is payable if Units are redeemed/switched-out after 1 year from the date of allotment. No Entry/Exit Load shall be levied on bonus units and units allotted on dividend reinvestment\n\nAbout the scheme and benchmark: Fund benchmark NIFTY Midcap 150 Index (Total Returns Index)",
+  "metadata": {
+    "requested_url": "https://www.hdfcfund.com/explore/mutual-funds/hdfc-mid-cap-fund/direct",
+    "final_url": "https://www.hdfcfund.com/explore/mutual-funds/hdfc-mid-cap-fund/direct",
+    "parser": "hdfc_scheme",
+    "page_type": "scheme_page",
+    "fetch_via": "jina_proxy",
+    "links_followed": 0,
+    "internal_links_discovered": 0,
+    "retrieved_at": "2026-11-07T21:45:13.304210+00:00"
+  }
+}

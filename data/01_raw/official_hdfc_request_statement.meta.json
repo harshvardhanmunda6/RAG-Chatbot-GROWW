@@ -1,0 +1,25 @@
+{
+  "source_id": "official_hdfc_request_statement",
+  "requested_url": "https://www.hdfcfund.com/services/additional-info/request-statement",
+  "source_type": "amc",
+  "publisher": "HDFC Asset Management Company Limited",
+  "title": "HDFC Mutual Fund Request Statement",
+  "scheme_slugs": [
+    "hdfc-mutual-fund"
+  ],
+  "notes": "Official statement request page; includes capital-gains and account-statement links; citable",
+  "links_followed": 0,
+  "internal_links_discovered": 0,
+  "status": "ok",
+  "final_url": "https://www.hdfcfund.com/services/additional-info/request-statement",
+  "http_status": 200,
+  "content_type": "text/plain; charset=utf-8",
+  "content_length_header": null,
+  "bytes_written": 145879,
+  "content_hash": "sha256:fcea7081e62f6ae25dced965d8a99c821aa0a3868ac270dd6926f28f4ce0c1d9",
+  "fetched_at": "2026-11-07T21:45:33.476906+00:00",
+  "parser": "generic_official",
+  "fetch_via": "jina_proxy",
+  "redirect_history": [],
+  "raw_path": "data/01_raw/official_hdfc_request_statement.html"
+}

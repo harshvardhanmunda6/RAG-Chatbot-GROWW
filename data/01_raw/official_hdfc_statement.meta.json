@@ -1,0 +1,25 @@
+{
+  "source_id": "official_hdfc_statement",
+  "requested_url": "https://www.hdfcfund.com/services/consolidated-account-statement",
+  "source_type": "amc",
+  "publisher": "HDFC Asset Management Company Limited",
+  "title": "HDFC Mutual Fund - Download Statement",
+  "scheme_slugs": [
+    "hdfc-mutual-fund"
+  ],
+  "notes": "Official statement download help; citable",
+  "links_followed": 0,
+  "internal_links_discovered": 0,
+  "status": "ok",
+  "final_url": "https://www.hdfcfund.com/services/consolidated-account-statement",
+  "http_status": 200,
+  "content_type": "text/plain; charset=utf-8",
+  "content_length_header": null,
+  "bytes_written": 123150,
+  "content_hash": "sha256:97d59f3cb1acb3007ce1b975bf421793ad70ec2dc0e729921b39c2d173933c27",
+  "fetched_at": "2026-11-07T21:45:15.583508+00:00",
+  "parser": "hdfc_statement",
+  "fetch_via": "jina_proxy",
+  "redirect_history": [],
+  "raw_path": "data/01_raw/official_hdfc_statement.html"
+}

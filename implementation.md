@@ -78,6 +78,8 @@ Create the project layout:
 ├── sources.md
 ├── sample_qa.md
 ├── eval_report.md
+├── render.yaml
+├── .python-version
 ├── design/
 │   └── README.md
 ├── src/
@@ -166,15 +168,17 @@ __pycache__/
 *.pyc
 .env
 .pytest_cache/
+.pytest_tmp/
+# Raw HTML snapshots are local-only; metadata is enough for the UI.
 data/01_raw/*
-data/02_clean/*
-data/03_chunks/*
-data/04_embeddings/*
-data/05_vector/*
+!data/01_raw/*.meta.json
+# Query logs are local-only. They can contain user questions.
 data/06_retrieval/*
 data/07_answers/*
-data/08_eval/*
+!data/**/.gitkeep
 ```
+
+The cleaned sources, chunks/facts, embeddings, Chroma collection, and evaluation artifacts are committed so a Render deploy can serve answers without rebuilding the corpus. `render.yaml` and `.python-version` define the hosted deployment.
 
 ---
 

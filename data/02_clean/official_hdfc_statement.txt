@@ -1,0 +1,1 @@
+Statement download process: To download an account statement, choose PAN or Folio, send the OTP, select the duration (Current Financial Year), and click SEND EMAIL. You can download a PAN-based Account Statement or a Folio-based Account Statement.

@@ -1,0 +1,40 @@
+{
+  "source_id": "official_hdfc_statement",
+  "url": "https://www.hdfcfund.com/services/consolidated-account-statement",
+  "final_url": "https://www.hdfcfund.com/services/consolidated-account-statement",
+  "title": "HDFC Mutual Fund - Download Statement",
+  "publisher": "HDFC Asset Management Company Limited",
+  "source_type": "amc",
+  "citable": true,
+  "scheme_slugs": [
+    "hdfc-mutual-fund"
+  ],
+  "status": "cleaned",
+  "http_status": 200,
+  "fetched_at": "2026-11-07T21:45:15.583508Z",
+  "content_hash": "sha256:97d59f3cb1acb3007ce1b975bf421793ad70ec2dc0e729921b39c2d173933c27",
+  "clean_text_hash": "sha256:b56d080978608e29babb3bfd4d90af076949cc42d5a6081949af8f332639ac31",
+  "sections": [
+    {
+      "section_id": "statement_process",
+      "heading": "Statement download process",
+      "text": "To download an account statement, choose PAN or Folio, send the OTP, select the duration (Current Financial Year), and click SEND EMAIL. You can download a PAN-based Account Statement or a Folio-based Account Statement.",
+      "order": 1
+    }
+  ],
+  "removed_sections": [
+    "faqs",
+    "other services"
+  ],
+  "clean_text": "Statement download process: To download an account statement, choose PAN or Folio, send the OTP, select the duration (Current Financial Year), and click SEND EMAIL. You can download a PAN-based Account Statement or a Folio-based Account Statement.",
+  "metadata": {
+    "requested_url": "https://www.hdfcfund.com/services/consolidated-account-statement",
+    "final_url": "https://www.hdfcfund.com/services/consolidated-account-statement",
+    "parser": "hdfc_statement",
+    "page_type": "statement",
+    "fetch_via": "jina_proxy",
+    "links_followed": 0,
+    "internal_links_discovered": 0,
+    "retrieved_at": "2026-11-07T21:45:15.583508+00:00"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "source_id": "official_hdfc_large_cap",
+  "requested_url": "https://www.hdfcfund.com/explore/mutual-funds/hdfc-large-cap-fund/direct",
+  "source_type": "amc",
+  "publisher": "HDFC Asset Management Company Limited",
+  "title": "HDFC Large Cap Fund Direct Growth",
+  "scheme_slugs": [
+    "hdfc-large-cap-fund-direct-growth"
+  ],
+  "notes": "Official scheme page; citable",
+  "links_followed": 0,
+  "internal_links_discovered": 0,
+  "status": "ok",
+  "final_url": "https://www.hdfcfund.com/explore/mutual-funds/hdfc-large-cap-fund/direct",
+  "http_status": 200,
+  "content_type": "text/plain; charset=utf-8",
+  "content_length_header": null,
+  "bytes_written": 166050,
+  "content_hash": "sha256:518362aafc74e3f8881ec0f0ff82f6e8327a70da97deb13992e3662fbd7eda77",
+  "fetched_at": "2026-11-07T21:45:03.171116+00:00",
+  "parser": "hdfc_scheme",
+  "fetch_via": "jina_proxy",
+  "redirect_history": [],
+  "raw_path": "data/01_raw/official_hdfc_large_cap.html"
+}

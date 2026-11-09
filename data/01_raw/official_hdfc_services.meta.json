@@ -1,0 +1,23 @@
+{
+  "source_id": "official_hdfc_services",
+  "requested_url": "https://www.hdfcfund.com/services",
+  "source_type": "amc",
+  "publisher": "HDFC Asset Management Company Limited",
+  "title": "HDFC Mutual Fund Services",
+  "scheme_slugs": [],
+  "notes": "Official service index; cross-check only",
+  "links_followed": 0,
+  "internal_links_discovered": 0,
+  "status": "ok",
+  "final_url": "https://www.hdfcfund.com/services",
+  "http_status": 200,
+  "content_type": "text/plain; charset=utf-8",
+  "content_length_header": null,
+  "bytes_written": 126952,
+  "content_hash": "sha256:fe4b381714e2ce898fdd8b05a62a414430e651fc0e49c0ebfa42bbf657dbfc00",
+  "fetched_at": "2026-11-07T21:45:27.323187+00:00",
+  "parser": "generic_official",
+  "fetch_via": "jina_proxy",
+  "redirect_history": [],
+  "raw_path": "data/01_raw/official_hdfc_services.html"
+}

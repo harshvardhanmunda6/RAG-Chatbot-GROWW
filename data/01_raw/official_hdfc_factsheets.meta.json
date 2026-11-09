@@ -1,0 +1,23 @@
+{
+  "source_id": "official_hdfc_factsheets",
+  "requested_url": "https://www.hdfcfund.com/mutual-funds/factsheets",
+  "source_type": "amc",
+  "publisher": "HDFC Asset Management Company Limited",
+  "title": "HDFC Mutual Fund Factsheets",
+  "scheme_slugs": [],
+  "notes": "Official factsheet index; supports performance refusals without performance content",
+  "links_followed": 0,
+  "internal_links_discovered": 0,
+  "status": "ok",
+  "final_url": "https://www.hdfcfund.com/mutual-funds/factsheets",
+  "http_status": 200,
+  "content_type": "text/plain; charset=utf-8",
+  "content_length_header": null,
+  "bytes_written": 119674,
+  "content_hash": "sha256:d1f3d10b351c9af5d647aac048f4213ff370be54fec8974c7e5444ad383ed648",
+  "fetched_at": "2026-11-07T21:45:21.693913+00:00",
+  "parser": "generic_official",
+  "fetch_via": "jina_proxy",
+  "redirect_history": [],
+  "raw_path": "data/01_raw/official_hdfc_factsheets.html"
+}

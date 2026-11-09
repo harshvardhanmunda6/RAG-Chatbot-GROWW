@@ -1,0 +1,71 @@
+{
+  "source_id": "official_hdfc_large_cap",
+  "url": "https://www.hdfcfund.com/explore/mutual-funds/hdfc-large-cap-fund/direct",
+  "final_url": "https://www.hdfcfund.com/explore/mutual-funds/hdfc-large-cap-fund/direct",
+  "title": "HDFC Large Cap Fund Direct Growth",
+  "publisher": "HDFC Asset Management Company Limited",
+  "source_type": "amc",
+  "citable": true,
+  "scheme_slugs": [
+    "hdfc-large-cap-fund-direct-growth"
+  ],
+  "status": "cleaned",
+  "http_status": 200,
+  "fetched_at": "2026-11-07T21:45:03.171116Z",
+  "content_hash": "sha256:518362aafc74e3f8881ec0f0ff82f6e8327a70da97deb13992e3662fbd7eda77",
+  "clean_text_hash": "sha256:b41b1ba3c8d916527b0c1d28a09ed8cb44a1642ae9fcf84f9be1de7762f02ac7",
+  "sections": [
+    {
+      "section_id": "overview",
+      "heading": "Scheme overview",
+      "text": "About HDFC Large Cap Fund An open ended equity scheme predominantly investing in large cap stocks. The Scheme aims to provide long-term capital appreciation. It will maintain a minimum exposure of 80% to Large Cap stocks, as defined by SEBI, which currently are the 100 largest companies in India in terms of full market capitalization. Generally, large cap companies are well established businesses that are in operation for a longer period of time and are well positioned to absorb business pressures across various market cycles. Due to their size, they also benefit from economies of scale. The Scheme will remain diversified across key sectors and economic variables.",
+      "order": 1
+    },
+    {
+      "section_id": "key_facts",
+      "heading": "Key facts",
+      "text": "Expense ratio 1.01% Min SIP ₹ 100 Riskometer Very High Risk Fund benchmark NIFTY 100 (Total Return Index) Lock-in NA",
+      "order": 2
+    },
+    {
+      "section_id": "minimum_investments",
+      "heading": "Minimum investments",
+      "text": "Minimum SIP: ₹ 100",
+      "order": 3
+    },
+    {
+      "section_id": "exit_load",
+      "heading": "Exit load",
+      "text": "Exit load: In respect of each purchase/switch-in of Units, an Exit Load of 1.00% is payable if Units are redeemed/switched-out within 1 year from the date of allotment. ● No Exit Load is payable if Units are redeemed/switched-out after 1 year from the date of allotment. No Entry/Exit Load shall be levied on bonus units and units allotted on dividend reinvestment",
+      "order": 4
+    },
+    {
+      "section_id": "about_benchmark",
+      "heading": "About the scheme and benchmark",
+      "text": "Fund benchmark NIFTY 100 (Total Return Index)",
+      "order": 5
+    }
+  ],
+  "removed_sections": [
+    "returns since inception",
+    "scheme returns",
+    "benchmark returns",
+    "returns and rankings",
+    "fund managers",
+    "portfolio allocation and top holdings",
+    "downloads",
+    "faqs",
+    "product labelling"
+  ],
+  "clean_text": "Scheme overview: About HDFC Large Cap Fund An open ended equity scheme predominantly investing in large cap stocks. The Scheme aims to provide long-term capital appreciation. It will maintain a minimum exposure of 80% to Large Cap stocks, as defined by SEBI, which currently are the 100 largest companies in India in terms of full market capitalization. Generally, large cap companies are well established businesses that are in operation for a longer period of time and are well positioned to absorb business pressures across various market cycles. Due to their size, they also benefit from economies of scale. The Scheme will remain diversified across key sectors and economic variables.\n\nKey facts: Expense ratio 1.01% Min SIP ₹ 100 Riskometer Very High Risk Fund benchmark NIFTY 100 (Total Return Index) Lock-in NA\n\nMinimum investments: Minimum SIP: ₹ 100\n\nExit load: Exit load: In respect of each purchase/switch-in of Units, an Exit Load of 1.00% is payable if Units are redeemed/switched-out within 1 year from the date of allotment. ● No Exit Load is payable if Units are redeemed/switched-out after 1 year from the date of allotment. No Entry/Exit Load shall be levied on bonus units and units allotted on dividend reinvestment\n\nAbout the scheme and benchmark: Fund benchmark NIFTY 100 (Total Return Index)",
+  "metadata": {
+    "requested_url": "https://www.hdfcfund.com/explore/mutual-funds/hdfc-large-cap-fund/direct",
+    "final_url": "https://www.hdfcfund.com/explore/mutual-funds/hdfc-large-cap-fund/direct",
+    "parser": "hdfc_scheme",
+    "page_type": "scheme_page",
+    "fetch_via": "jina_proxy",
+    "links_followed": 0,
+    "internal_links_discovered": 0,
+    "retrieved_at": "2026-11-07T21:45:03.171116+00:00"
+  }
+}

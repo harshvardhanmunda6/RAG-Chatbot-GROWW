@@ -1,0 +1,23 @@
+{
+  "generated_at": "2026-11-08T08:38:25.132157+00:00",
+  "gold_questions": 25,
+  "results": 25,
+  "passed": 25,
+  "failed": 0,
+  "pass_rate": 1.0,
+  "fact_questions": 13,
+  "fact_pass_rate": 1.0,
+  "refusal_questions": 12,
+  "refusal_pass_rate": 1.0,
+  "pii_cases": 3,
+  "pii_blocked_rate": 1.0,
+  "pii_absent_rate": 1.0,
+  "citation_rate": 1.0,
+  "sentence_limit_rate": 1.0,
+  "validation_rate": 1.0,
+  "fallback_answers": 0,
+  "avg_latency_ms": 2661.016,
+  "provider": "gemini",
+  "model": "gemini-3.5-flash-lite",
+  "gold_set": "/root/chat/2026-11-01/session-f30a1398-a646-4e65-b135-51c8168efe73/data/08_eval/gold_set.jsonl"
+}

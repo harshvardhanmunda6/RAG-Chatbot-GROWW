@@ -1,0 +1,35 @@
+{
+  "source_id": "official_hdfc_services",
+  "url": "https://www.hdfcfund.com/services",
+  "final_url": "https://www.hdfcfund.com/services",
+  "title": "HDFC Mutual Fund Services",
+  "publisher": "HDFC Asset Management Company Limited",
+  "source_type": "amc",
+  "citable": false,
+  "scheme_slugs": [],
+  "status": "cleaned",
+  "http_status": 200,
+  "fetched_at": "2026-11-07T21:45:27.323187Z",
+  "content_hash": "sha256:fe4b381714e2ce898fdd8b05a62a414430e651fc0e49c0ebfa42bbf657dbfc00",
+  "clean_text_hash": "sha256:bdbcea1e7ec6cd912a5456e372cb4bad806261db1733c66b2c67f212746039df",
+  "sections": [
+    {
+      "section_id": "section_1",
+      "heading": "Services",
+      "text": "Your one-stop destination for seamless mutual fund transactions and support E-Services Download Statement Download Statement Invest Online Invest Online Invest via WhatsApp Invest via WhatsApp Missed Call Facility Missed Call Facility SMS Service SMS Service Update Contact Update Contact Update KYC Update KYC Other Services Additional Information Additional Information Contact Us Contact Us FAQs FAQs Get Forms Get Forms Investor Awareness IAP Downloads IAP Downloads Investor Awareness Programmes Investor Awareness Programmes KYC & Redressal of Complaints KYC & Redressal of Complaints Cyber Security Awareness Cyber Security Awareness",
+      "order": 1
+    }
+  ],
+  "removed_sections": [],
+  "clean_text": "Services: Your one-stop destination for seamless mutual fund transactions and support E-Services Download Statement Download Statement Invest Online Invest Online Invest via WhatsApp Invest via WhatsApp Missed Call Facility Missed Call Facility SMS Service SMS Service Update Contact Update Contact Update KYC Update KYC Other Services Additional Information Additional Information Contact Us Contact Us FAQs FAQs Get Forms Get Forms Investor Awareness IAP Downloads IAP Downloads Investor Awareness Programmes Investor Awareness Programmes KYC & Redressal of Complaints KYC & Redressal of Complaints Cyber Security Awareness Cyber Security Awareness",
+  "metadata": {
+    "requested_url": "https://www.hdfcfund.com/services",
+    "final_url": "https://www.hdfcfund.com/services",
+    "parser": "generic_official",
+    "page_type": "official_education",
+    "fetch_via": "jina_proxy",
+    "links_followed": 0,
+    "internal_links_discovered": 0,
+    "retrieved_at": "2026-11-07T21:45:27.323187+00:00"
+  }
+}

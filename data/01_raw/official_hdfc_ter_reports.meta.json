@@ -1,0 +1,23 @@
+{
+  "source_id": "official_hdfc_ter_reports",
+  "requested_url": "https://www.hdfcfund.com/statutory-disclosure/total-expense-ratio-of-mutual-fund-schemes/reports",
+  "source_type": "amc",
+  "publisher": "HDFC Asset Management Company Limited",
+  "title": "HDFC Mutual Fund Total Expense Ratio Reports",
+  "scheme_slugs": [],
+  "notes": "Official TER disclosure; cross-check only; non-citable to avoid duplicate evidence",
+  "links_followed": 0,
+  "internal_links_discovered": 0,
+  "status": "ok",
+  "final_url": "https://www.hdfcfund.com/statutory-disclosure/total-expense-ratio-of-mutual-fund-schemes/reports",
+  "http_status": 200,
+  "content_type": "text/plain; charset=utf-8",
+  "content_length_header": null,
+  "bytes_written": 119711,
+  "content_hash": "sha256:13043dc49eeb5180c6974593903e966f18f23eab16a1286d9487842c16f17895",
+  "fetched_at": "2026-11-07T21:45:24.662135+00:00",
+  "parser": "generic_official",
+  "fetch_via": "jina_proxy",
+  "redirect_history": [],
+  "raw_path": "data/01_raw/official_hdfc_ter_reports.html"
+}

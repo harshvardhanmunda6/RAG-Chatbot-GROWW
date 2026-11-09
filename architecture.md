@@ -1271,9 +1271,11 @@ Outputs:
 
 ### 13.3 Hosted demo
 
-- Streamlit Community Cloud or equivalent.
+- Render web service or Streamlit Community Cloud.
 - Store provider key in server-side secrets, never client-side.
-- Prebuild the Chroma collection and commit only non-secret artifacts, or run ingestion at deploy time.
+- Prebuild the Chroma collection and commit only non-secret artifacts, or run ingestion at deploy time. This repository commits the cleaned sources, chunks, embeddings, Chroma collection, and evaluation artifacts; raw HTML and query logs stay local-only.
+- Render settings: root directory blank, build `pip install --upgrade pip && pip install -r requirements.txt`, start `streamlit run app.py --server.address 0.0.0.0 --server.port $PORT --server.headless true`, health check `/_stcore/health`.
+- Use the checked-in `render.yaml` and `.python-version` (`3.12.8`).
 - Disable file uploads and PII fields.
 - Rate-limit if public.
 - Prefer a short-lived demo key.

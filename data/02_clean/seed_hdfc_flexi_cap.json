@@ -1,0 +1,75 @@
+{
+  "source_id": "seed_hdfc_flexi_cap",
+  "url": "https://groww.in/mutual-funds/hdfc-equity-fund-direct-growth",
+  "final_url": "https://groww.in/mutual-funds/hdfc-equity-fund-direct-growth",
+  "title": "HDFC Flexi Cap Direct Plan Growth",
+  "publisher": "Groww",
+  "source_type": "seed",
+  "citable": false,
+  "scheme_slugs": [
+    "hdfc-flexi-cap-direct-plan-growth"
+  ],
+  "status": "cleaned",
+  "http_status": 200,
+  "fetched_at": "2026-11-07T21:44:46.413199Z",
+  "content_hash": "sha256:14d51895d34d206c752fa7d1d12d2ed24d07cf653f897ee6b7927f39a88211ba",
+  "clean_text_hash": "sha256:5cffb6d8840e5a9b1c6ec63e8f512b628d6617ab8a2d41780caa2141fd97c7ea",
+  "sections": [
+    {
+      "section_id": "overview",
+      "heading": "Scheme overview",
+      "text": "HDFC Flexi Cap Direct Plan Growth Equity Flexi Cap Very High Risk",
+      "order": 1
+    },
+    {
+      "section_id": "key_facts",
+      "heading": "Key facts",
+      "text": "NAV: 06 Nov '26 ₹2,335.94 Min. for SIP ₹100 Fund size (AUM) ₹1,08,546.98 Cr Expense ratio 0.75%",
+      "order": 2
+    },
+    {
+      "section_id": "minimum_investments",
+      "heading": "Minimum investments",
+      "text": "Minimum investments Min. for 1st investment ₹100 Min. for 2nd investment ₹100 Min. for SIP ₹100",
+      "order": 3
+    },
+    {
+      "section_id": "exit_load",
+      "heading": "Exit load and stamp duty",
+      "text": "Exit load Exit load of 1% if redeemed within 1 year Stamp duty on investment: 0.005% (from July 1st, 2020) from July 1st 2020",
+      "order": 4
+    },
+    {
+      "section_id": "about_benchmark",
+      "heading": "About the scheme and benchmark",
+      "text": "About HDFC Flexi Cap Direct Plan Growth HDFC Flexi Cap Direct Plan Growth is a Equity Mutual Fund Scheme launched by HDFC Mutual Fund. This scheme was made available to investors on 10 Dec 1999. Dhruv Muchhal is the Current Fund Manager of HDFC Flexi Cap Direct Plan Growth fund. The fund currently has an Asset Under Management(AUM) of ₹9,34,076 Cr and the Latest NAV as of 06 Nov 2026 is ₹2,335.94. The HDFC Flexi Cap Direct Plan Growth is rated Very High risk. Minimum SIP Investment is set to ₹100. Minimum Lumpsum Investment is ₹100. Exit load of 1% if redeemed within 1 year ; Investment Objective The scheme seeks to generate capital appreciation / income from a portfolio, predominantly invested in equity & equity related instruments. Fund benchmark NIFTY 500 Total Return Index Scheme Information Document(SID)",
+      "order": 5
+    },
+    {
+      "section_id": "fund_house",
+      "heading": "Fund house and registrar",
+      "text": "Fund house HDFC Mutual Fund Total AUM ₹9,34,075.66 Cr Date of Incorporation 10 Dec 1999 Phone 022 – 66316333 E-mail [email protected] Website http://www.hdfcfund.com Launch Date 10 Dec 1999 Address \"HDFC House\", 2nd Floor, H. T. Parekh Marg, 165-166, BackbayReclamation, Churchgate Mumbai 400020 Custodian Deutsche Bank Registrar & Transfer Agent Cams Email [email protected] Website www.camsonline.com Address 7th Floor, Tower II, Rayala Towers, 158, Anna Salai,",
+      "order": 6
+    }
+  ],
+  "removed_sections": [
+    "flex flex-column returnStats_returnStatsContainer__gGxzY",
+    "col l12 mfGraph_mainGraphContainer__VIKBQ",
+    "returnCalculator_container__5MxOV",
+    "holdingsContainer",
+    "returnsAndRankings_container__vddty",
+    "compareSimilarFunds_container__VCScJ",
+    "fundManagement_container__AjJp9"
+  ],
+  "clean_text": "Scheme overview: HDFC Flexi Cap Direct Plan Growth Equity Flexi Cap Very High Risk\n\nKey facts: NAV: 06 Nov '26 ₹2,335.94 Min. for SIP ₹100 Fund size (AUM) ₹1,08,546.98 Cr Expense ratio 0.75%\n\nMinimum investments: Minimum investments Min. for 1st investment ₹100 Min. for 2nd investment ₹100 Min. for SIP ₹100\n\nExit load and stamp duty: Exit load Exit load of 1% if redeemed within 1 year Stamp duty on investment: 0.005% (from July 1st, 2020) from July 1st 2020\n\nAbout the scheme and benchmark: About HDFC Flexi Cap Direct Plan Growth HDFC Flexi Cap Direct Plan Growth is a Equity Mutual Fund Scheme launched by HDFC Mutual Fund. This scheme was made available to investors on 10 Dec 1999. Dhruv Muchhal is the Current Fund Manager of HDFC Flexi Cap Direct Plan Growth fund. The fund currently has an Asset Under Management(AUM) of ₹9,34,076 Cr and the Latest NAV as of 06 Nov 2026 is ₹2,335.94. The HDFC Flexi Cap Direct Plan Growth is rated Very High risk. Minimum SIP Investment is set to ₹100. Minimum Lumpsum Investment is ₹100. Exit load of 1% if redeemed within 1 year ; Investment Objective The scheme seeks to generate capital appreciation / income from a portfolio, predominantly invested in equity & equity related instruments. Fund benchmark NIFTY 500 Total Return Index Scheme Information Document(SID)\n\nFund house and registrar: Fund house HDFC Mutual Fund Total AUM ₹9,34,075.66 Cr Date of Incorporation 10 Dec 1999 Phone 022 – 66316333 E-mail [email protected] Website http://www.hdfcfund.com Launch Date 10 Dec 1999 Address \"HDFC House\", 2nd Floor, H. T. Parekh Marg, 165-166, BackbayReclamation, Churchgate Mumbai 400020 Custodian Deutsche Bank Registrar & Transfer Agent Cams Email [email protected] Website www.camsonline.com Address 7th Floor, Tower II, Rayala Towers, 158, Anna Salai,",
+  "metadata": {
+    "requested_url": "https://groww.in/mutual-funds/hdfc-equity-fund-direct-growth",
+    "final_url": "https://groww.in/mutual-funds/hdfc-equity-fund-direct-growth",
+    "parser": "groww_html_sections",
+    "page_type": "scheme_page",
+    "fetch_via": "direct",
+    "links_followed": 0,
+    "internal_links_discovered": 0,
+    "retrieved_at": "2026-11-07T21:44:46.413199+00:00"
+  }
+}

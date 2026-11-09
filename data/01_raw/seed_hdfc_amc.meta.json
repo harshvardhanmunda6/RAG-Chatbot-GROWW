@@ -1,0 +1,23 @@
+{
+  "source_id": "seed_hdfc_amc",
+  "requested_url": "https://groww.in/mutual-funds/amc/hdfc-mutual-funds",
+  "source_type": "seed",
+  "publisher": "Groww",
+  "title": "HDFC Mutual Fund overview",
+  "scheme_slugs": [],
+  "notes": "Seed only; not citable; cross-check only",
+  "links_followed": 0,
+  "internal_links_discovered": 0,
+  "status": "ok",
+  "final_url": "https://groww.in/mutual-funds/amc/hdfc-mutual-funds",
+  "http_status": 200,
+  "content_type": "text/html; charset=utf-8",
+  "content_length_header": null,
+  "bytes_written": 249777,
+  "content_hash": "sha256:66ec8f3f2a80a5f11ed0031d4f6f00cafd6990f0bf138f0653e7cf9f845d3bc3",
+  "fetched_at": "2026-11-07T21:44:43.303454+00:00",
+  "parser": "html",
+  "fetch_via": "direct",
+  "redirect_history": [],
+  "raw_path": "data/01_raw/seed_hdfc_amc.html"
+}

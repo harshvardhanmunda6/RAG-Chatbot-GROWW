@@ -1,0 +1,45 @@
+{
+  "source_id": "official_hdfc_request_statement",
+  "url": "https://www.hdfcfund.com/services/additional-info/request-statement",
+  "final_url": "https://www.hdfcfund.com/services/additional-info/request-statement",
+  "title": "HDFC Mutual Fund Request Statement",
+  "publisher": "HDFC Asset Management Company Limited",
+  "source_type": "amc",
+  "citable": true,
+  "scheme_slugs": [
+    "hdfc-mutual-fund"
+  ],
+  "status": "cleaned",
+  "http_status": 200,
+  "fetched_at": "2026-11-07T21:45:33.476906Z",
+  "content_hash": "sha256:fcea7081e62f6ae25dced965d8a99c821aa0a3868ac270dd6926f28f4ce0c1d9",
+  "clean_text_hash": "sha256:69da88324bcc848101414c75081770499d762a455d0488dcb9b3ba80244ceb43",
+  "sections": [
+    {
+      "section_id": "section_1",
+      "heading": "Request Statement",
+      "text": "We offer you the convenience of having your account statement sent to your email id registered with us. Please enter your folio number in the box provided below and choose the option in which you wish to receive your account statement. Pursuant to SEBI guidelines, with effect from October 1, 2011, an allotment confirmation specifying the units allotted shall be sent by way of email and/or SMS within 5 Business Days of the initial investment transaction to the Unit holders who have registered their e-mail address and/or mobile number. Thereafter, a Consolidated Account Statement (CAS) shall be sent to the Unit holder in whose folio transactions have taken place during that month, on or before 10th of the succeeding month by mail/ email as applicable. In case of specific request received from investors, Mutual Fund will provide an account statement to the investors within 5 Business Days from the receipt of such request. Click here to view the addendum Click here for FAQ's",
+      "order": 1
+    },
+    {
+      "section_id": "section_2",
+      "heading": "Request statement",
+      "text": "Account statement - Click here Account statement - Click here Dividend statement - Click here Dividend statement - Click here Exit load statement - Click here Exit load statement - Click here Capital Gains Statement - Click here Capital Gains Statement - Click here Consolidated account statement - Click here Consolidated account statement - Click here Consolidated realized gains statement - Click here Consolidated realized gains statement - Click here Account statement by SMS Account statement by SMS Account statement through IVR Account statement through IVR Call us on 1800-3010-6767 (Toll Free) / 1800-419-7676 and follow the instructions . Investors calling from abroad may call on 91-44-33462406 to connect to our Call Center. Our call center executives will be available for assistance from 9:00 am to 6:00 pm (Monday to Friday) and 9:00 am to 1:00 pm (Saturday). You can also request for an account statement across the counter by visiting any of our Investor Service Center. Click here to view ISC details. You can also request for an account statement across the counter by visiting any of our Investor Service Center. Click here to view ISC details.",
+      "order": 2
+    }
+  ],
+  "removed_sections": [
+    "Response : Will either return an SMS confirmation that an account statement will be emailed; or in the event of error, will report the appropriate error."
+  ],
+  "clean_text": "Request Statement: We offer you the convenience of having your account statement sent to your email id registered with us. Please enter your folio number in the box provided below and choose the option in which you wish to receive your account statement. Pursuant to SEBI guidelines, with effect from October 1, 2011, an allotment confirmation specifying the units allotted shall be sent by way of email and/or SMS within 5 Business Days of the initial investment transaction to the Unit holders who have registered their e-mail address and/or mobile number. Thereafter, a Consolidated Account Statement (CAS) shall be sent to the Unit holder in whose folio transactions have taken place during that month, on or before 10th of the succeeding month by mail/ email as applicable. In case of specific request received from investors, Mutual Fund will provide an account statement to the investors within 5 Business Days from the receipt of such request. Click here to view the addendum Click here for FAQ's\n\nRequest statement: Account statement - Click here Account statement - Click here Dividend statement - Click here Dividend statement - Click here Exit load statement - Click here Exit load statement - Click here Capital Gains Statement - Click here Capital Gains Statement - Click here Consolidated account statement - Click here Consolidated account statement - Click here Consolidated realized gains statement - Click here Consolidated realized gains statement - Click here Account statement by SMS Account statement by SMS Account statement through IVR Account statement through IVR Call us on 1800-3010-6767 (Toll Free) / 1800-419-7676 and follow the instructions . Investors calling from abroad may call on 91-44-33462406 to connect to our Call Center. Our call center executives will be available for assistance from 9:00 am to 6:00 pm (Monday to Friday) and 9:00 am to 1:00 pm (Saturday). You can also request for an account statement across the counter by visiting any of our Investor Service Center. Click here to view ISC details. You can also request for an account statement across the counter by visiting any of our Investor Service Center. Click here to view ISC details.",
+  "metadata": {
+    "requested_url": "https://www.hdfcfund.com/services/additional-info/request-statement",
+    "final_url": "https://www.hdfcfund.com/services/additional-info/request-statement",
+    "parser": "generic_official",
+    "page_type": "official_education",
+    "fetch_via": "jina_proxy",
+    "links_followed": 0,
+    "internal_links_discovered": 0,
+    "retrieved_at": "2026-11-07T21:45:33.476906+00:00"
+  }
+}

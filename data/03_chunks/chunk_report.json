@@ -1,0 +1,88 @@
+{
+  "generated_at": "2026-11-07T21:46:02.365333+00:00",
+  "chunker_version": "1.0",
+  "config_hash": "2d6e0043de5ec06f9b4ff22cfd619d04f32287708bba857de1fa59e599792ed7",
+  "source_count": 17,
+  "approved_count": 9,
+  "seed_count": 5,
+  "blocked_count": 0,
+  "chunk_count": 120,
+  "fact_count": 45,
+  "chunk_count_by_page_type": {
+    "amc_overview": 6,
+    "official_education": 19,
+    "scheme_page": 93,
+    "statement": 2
+  },
+  "chunk_count_by_fact_type": {
+    "amc_overview": 2,
+    "benchmark": 8,
+    "exit_load": 8,
+    "expense_ratio": 8,
+    "lock_in": 2,
+    "min_sip": 8,
+    "narrative": 75,
+    "riskometer": 8,
+    "statement_process": 1
+  },
+  "fact_count_by_type": {
+    "amc_overview": 2,
+    "benchmark": 8,
+    "exit_load": 8,
+    "expense_ratio": 8,
+    "lock_in": 2,
+    "min_sip": 8,
+    "riskometer": 8,
+    "statement_process": 1
+  },
+  "fact_status_counts": {
+    "seed_only": 22,
+    "verified": 23
+  },
+  "token_distribution": {
+    "min": 20,
+    "median": 42.5,
+    "p95": 200,
+    "max": 200
+  },
+  "rejected_sections": 85,
+  "coverage": {
+    "hdfc-elss-tax-saver-fund-direct-plan-growth": {
+      "expense_ratio": "verified",
+      "exit_load": "verified",
+      "min_sip": "verified",
+      "lock_in": "verified",
+      "riskometer": "verified",
+      "benchmark": "verified"
+    },
+    "hdfc-flexi-cap-direct-plan-growth": {
+      "expense_ratio": "verified",
+      "exit_load": "verified",
+      "min_sip": "verified",
+      "riskometer": "verified",
+      "benchmark": "verified"
+    },
+    "hdfc-large-cap-fund-direct-growth": {
+      "expense_ratio": "verified",
+      "exit_load": "verified",
+      "min_sip": "verified",
+      "riskometer": "verified",
+      "benchmark": "verified"
+    },
+    "hdfc-mid-cap-fund-direct-growth": {
+      "expense_ratio": "verified",
+      "exit_load": "verified",
+      "min_sip": "verified",
+      "riskometer": "verified",
+      "benchmark": "verified"
+    },
+    "hdfc-mutual-fund": {
+      "amc_overview": "verified",
+      "statement_process": "verified"
+    },
+    "hdfc-mutual-fund-overview": {
+      "amc_overview": "seed_only"
+    }
+  },
+  "missing_facts": []
+}

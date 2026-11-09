@@ -1,0 +1,23 @@
+{
+  "source_id": "official_hdfc_disclosures",
+  "requested_url": "https://www.hdfcfund.com/statutory-disclosure",
+  "source_type": "amc",
+  "publisher": "HDFC Asset Management Company Limited",
+  "title": "HDFC Mutual Fund Statutory Disclosures",
+  "scheme_slugs": [],
+  "notes": "Official statutory disclosure index; cross-check only",
+  "links_followed": 0,
+  "internal_links_discovered": 0,
+  "status": "ok",
+  "final_url": "https://www.hdfcfund.com/statutory-disclosure",
+  "http_status": 200,
+  "content_type": "text/plain; charset=utf-8",
+  "content_length_header": null,
+  "bytes_written": 187466,
+  "content_hash": "sha256:fb29270c6491f28dc9ed1bd054163024bd9addf0329133bb3815648758d027e1",
+  "fetched_at": "2026-11-07T21:45:31.535706+00:00",
+  "parser": "generic_official",
+  "fetch_via": "jina_proxy",
+  "redirect_history": [],
+  "raw_path": "data/01_raw/official_hdfc_disclosures.html"
+}

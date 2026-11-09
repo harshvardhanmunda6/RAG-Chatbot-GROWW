@@ -1,0 +1,75 @@
+{
+  "source_id": "seed_hdfc_mid_cap",
+  "url": "https://groww.in/mutual-funds/hdfc-mid-cap-fund-direct-growth",
+  "final_url": "https://groww.in/mutual-funds/hdfc-mid-cap-fund-direct-growth",
+  "title": "HDFC Mid Cap Fund Direct Growth",
+  "publisher": "Groww",
+  "source_type": "seed",
+  "citable": false,
+  "scheme_slugs": [
+    "hdfc-mid-cap-fund-direct-growth"
+  ],
+  "status": "cleaned",
+  "http_status": 200,
+  "fetched_at": "2026-11-07T21:44:50.137529Z",
+  "content_hash": "sha256:1d16704bf7b7bd3fb42db2575e6958b822e4bf777555ad4fa6fba6627224ac41",
+  "clean_text_hash": "sha256:77b1c8eff41b93a65a0b67d2090e6d7b3c72cea60065da9ccb3012edb5b424a6",
+  "sections": [
+    {
+      "section_id": "overview",
+      "heading": "Scheme overview",
+      "text": "HDFC Mid Cap Fund Direct Growth Equity Mid Cap Very High Risk",
+      "order": 1
+    },
+    {
+      "section_id": "key_facts",
+      "heading": "Key facts",
+      "text": "NAV: 06 Nov '26 ₹226.05 Min. for SIP ₹100 Fund size (AUM) ₹1,01,856.06 Cr Expense ratio 0.74%",
+      "order": 2
+    },
+    {
+      "section_id": "minimum_investments",
+      "heading": "Minimum investments",
+      "text": "Minimum investments Min. for 1st investment ₹100 Min. for 2nd investment ₹100 Min. for SIP ₹100",
+      "order": 3
+    },
+    {
+      "section_id": "exit_load",
+      "heading": "Exit load and stamp duty",
+      "text": "Exit load Exit load of 1% if redeemed within 1 year. Stamp duty on investment: 0.005% (from July 1st, 2020) from July 1st 2020",
+      "order": 4
+    },
+    {
+      "section_id": "about_benchmark",
+      "heading": "About the scheme and benchmark",
+      "text": "About HDFC Mid Cap Fund Direct Growth HDFC Mid Cap Fund Direct Growth is a Equity Mutual Fund Scheme launched by HDFC Mutual Fund. This scheme was made available to investors on 10 Dec 1999. Chirag Setalvad is the Current Fund Manager of HDFC Mid Cap Fund Direct Growth fund. The fund currently has an Asset Under Management(AUM) of ₹9,34,076 Cr and the Latest NAV as of 06 Nov 2026 is ₹226.05. The HDFC Mid Cap Fund Direct Growth is rated Very High risk. Minimum SIP Investment is set to ₹100. Minimum Lumpsum Investment is ₹100. Exit load of 1% if redeemed within 1 year. ; Investment Objective The scheme seeks to provide long-term capital appreciation/income by investing predominantly in Mid-Cap companies. Fund benchmark NIFTY Midcap 150 Total Return Index Scheme Information Document(SID)",
+      "order": 5
+    },
+    {
+      "section_id": "fund_house",
+      "heading": "Fund house and registrar",
+      "text": "Fund house HDFC Mutual Fund Total AUM ₹9,34,075.66 Cr Date of Incorporation 10 Dec 1999 Phone 022 – 66316333 E-mail [email protected] Website http://www.hdfcfund.com Launch Date 10 Dec 1999 Address \"HDFC House\", 2nd Floor, H. T. Parekh Marg, 165-166, BackbayReclamation, Churchgate Mumbai 400020 Custodian -- Registrar & Transfer Agent Cams Email [email protected] Website www.camsonline.com Address 7th Floor, Tower II, Rayala Towers, 158, Anna Salai,",
+      "order": 6
+    }
+  ],
+  "removed_sections": [
+    "flex flex-column returnStats_returnStatsContainer__gGxzY",
+    "col l12 mfGraph_mainGraphContainer__VIKBQ",
+    "returnCalculator_container__5MxOV",
+    "holdingsContainer",
+    "returnsAndRankings_container__vddty",
+    "compareSimilarFunds_container__VCScJ",
+    "fundManagement_container__AjJp9"
+  ],
+  "clean_text": "Scheme overview: HDFC Mid Cap Fund Direct Growth Equity Mid Cap Very High Risk\n\nKey facts: NAV: 06 Nov '26 ₹226.05 Min. for SIP ₹100 Fund size (AUM) ₹1,01,856.06 Cr Expense ratio 0.74%\n\nMinimum investments: Minimum investments Min. for 1st investment ₹100 Min. for 2nd investment ₹100 Min. for SIP ₹100\n\nExit load and stamp duty: Exit load Exit load of 1% if redeemed within 1 year. Stamp duty on investment: 0.005% (from July 1st, 2020) from July 1st 2020\n\nAbout the scheme and benchmark: About HDFC Mid Cap Fund Direct Growth HDFC Mid Cap Fund Direct Growth is a Equity Mutual Fund Scheme launched by HDFC Mutual Fund. This scheme was made available to investors on 10 Dec 1999. Chirag Setalvad is the Current Fund Manager of HDFC Mid Cap Fund Direct Growth fund. The fund currently has an Asset Under Management(AUM) of ₹9,34,076 Cr and the Latest NAV as of 06 Nov 2026 is ₹226.05. The HDFC Mid Cap Fund Direct Growth is rated Very High risk. Minimum SIP Investment is set to ₹100. Minimum Lumpsum Investment is ₹100. Exit load of 1% if redeemed within 1 year. ; Investment Objective The scheme seeks to provide long-term capital appreciation/income by investing predominantly in Mid-Cap companies. Fund benchmark NIFTY Midcap 150 Total Return Index Scheme Information Document(SID)\n\nFund house and registrar: Fund house HDFC Mutual Fund Total AUM ₹9,34,075.66 Cr Date of Incorporation 10 Dec 1999 Phone 022 – 66316333 E-mail [email protected] Website http://www.hdfcfund.com Launch Date 10 Dec 1999 Address \"HDFC House\", 2nd Floor, H. T. Parekh Marg, 165-166, BackbayReclamation, Churchgate Mumbai 400020 Custodian -- Registrar & Transfer Agent Cams Email [email protected] Website www.camsonline.com Address 7th Floor, Tower II, Rayala Towers, 158, Anna Salai,",
+  "metadata": {
+    "requested_url": "https://groww.in/mutual-funds/hdfc-mid-cap-fund-direct-growth",
+    "final_url": "https://groww.in/mutual-funds/hdfc-mid-cap-fund-direct-growth",
+    "parser": "groww_html_sections",
+    "page_type": "scheme_page",
+    "fetch_via": "direct",
+    "links_followed": 0,
+    "internal_links_discovered": 0,
+    "retrieved_at": "2026-11-07T21:44:50.137529+00:00"
+  }
+}

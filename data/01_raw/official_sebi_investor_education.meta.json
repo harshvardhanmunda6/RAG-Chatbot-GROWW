@@ -1,0 +1,23 @@
+{
+  "source_id": "official_sebi_investor_education",
+  "requested_url": "https://investor.sebi.gov.in/",
+  "source_type": "sebi",
+  "publisher": "Securities and Exchange Board of India",
+  "title": "SEBI Investor Education",
+  "scheme_slugs": [],
+  "notes": "Official investor education; supports advice and PII refusals",
+  "links_followed": 0,
+  "internal_links_discovered": 0,
+  "status": "ok",
+  "final_url": "https://investor.sebi.gov.in/",
+  "http_status": 200,
+  "content_type": "text/html; charset=UTF-8",
+  "content_length_header": "65762",
+  "bytes_written": 65762,
+  "content_hash": "sha256:4f3cf6de9e49a74e436d3737b7e12f9a0b9104a62ca1ab23ace2ddc0b42defbb",
+  "fetched_at": "2026-11-07T21:45:17.362865+00:00",
+  "parser": "generic_official",
+  "fetch_via": "direct",
+  "redirect_history": [],
+  "raw_path": "data/01_raw/official_sebi_investor_education.html"
+}

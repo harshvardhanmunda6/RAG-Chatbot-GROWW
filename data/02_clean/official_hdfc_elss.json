@@ -1,0 +1,71 @@
+{
+  "source_id": "official_hdfc_elss",
+  "url": "https://www.hdfcfund.com/explore/mutual-funds/hdfc-elss-tax-saver-fund/direct",
+  "final_url": "https://www.hdfcfund.com/explore/mutual-funds/hdfc-elss-tax-saver-fund/direct",
+  "title": "HDFC ELSS Tax Saver Fund Direct Plan Growth",
+  "publisher": "HDFC Asset Management Company Limited",
+  "source_type": "amc",
+  "citable": true,
+  "scheme_slugs": [
+    "hdfc-elss-tax-saver-fund-direct-plan-growth"
+  ],
+  "status": "cleaned",
+  "http_status": 200,
+  "fetched_at": "2026-11-07T21:45:09.823953Z",
+  "content_hash": "sha256:cbffee62fe12bf7fc2a8370390498d590530e0a5c950778e89b9fd46de48e585",
+  "clean_text_hash": "sha256:ff9d9ba65b0a699e61e60586cab671a4f34a02038535bf380c52542c61773c62",
+  "sections": [
+    {
+      "section_id": "overview",
+      "heading": "Scheme overview",
+      "text": "About HDFC ELSS - Tax Saver Fund An Open-ended Equity Linked Savings Scheme with a statutory lock in of 3 years and tax benefit. The scheme offers the dual benefit of tax saving and wealth creation. It comes with a lock-in period of three years and provides individuals/HUFs a deduction from gross total income for investments in Equity-Linked Savings Scheme upto ₹1.5 lakh under section 80C of the Income Tax Act 1961. The fund invests 80-100% of its portfolio in equity or equity related instruments.The equity strategy aims to provide long term capital appreciation from a reasonably diversified portfolio consisting of mid cap and large cap companies which: are likely to achive above average growth than the industry, enjoy distinct competetive advantages, have superior financial strenghts.",
+      "order": 1
+    },
+    {
+      "section_id": "key_facts",
+      "heading": "Key facts",
+      "text": "Expense ratio 1.20% Min SIP ₹ 500 Riskometer Very High Risk Fund benchmark NIFTY 500 Total Returns Index Lock-in 3 years",
+      "order": 2
+    },
+    {
+      "section_id": "minimum_investments",
+      "heading": "Minimum investments",
+      "text": "Minimum SIP: ₹ 500",
+      "order": 3
+    },
+    {
+      "section_id": "exit_load",
+      "heading": "Exit load",
+      "text": "Exit load: NIL",
+      "order": 4
+    },
+    {
+      "section_id": "about_benchmark",
+      "heading": "About the scheme and benchmark",
+      "text": "Fund benchmark NIFTY 500 Total Returns Index",
+      "order": 5
+    }
+  ],
+  "removed_sections": [
+    "returns since inception",
+    "scheme returns",
+    "benchmark returns",
+    "returns and rankings",
+    "fund managers",
+    "portfolio allocation and top holdings",
+    "downloads",
+    "faqs",
+    "product labelling"
+  ],
+  "clean_text": "Scheme overview: About HDFC ELSS - Tax Saver Fund An Open-ended Equity Linked Savings Scheme with a statutory lock in of 3 years and tax benefit. The scheme offers the dual benefit of tax saving and wealth creation. It comes with a lock-in period of three years and provides individuals/HUFs a deduction from gross total income for investments in Equity-Linked Savings Scheme upto ₹1.5 lakh under section 80C of the Income Tax Act 1961. The fund invests 80-100% of its portfolio in equity or equity related instruments.The equity strategy aims to provide long term capital appreciation from a reasonably diversified portfolio consisting of mid cap and large cap companies which: are likely to achive above average growth than the industry, enjoy distinct competetive advantages, have superior financial strenghts.\n\nKey facts: Expense ratio 1.20% Min SIP ₹ 500 Riskometer Very High Risk Fund benchmark NIFTY 500 Total Returns Index Lock-in 3 years\n\nMinimum investments: Minimum SIP: ₹ 500\n\nExit load: Exit load: NIL\n\nAbout the scheme and benchmark: Fund benchmark NIFTY 500 Total Returns Index",
+  "metadata": {
+    "requested_url": "https://www.hdfcfund.com/explore/mutual-funds/hdfc-elss-tax-saver-fund/direct",
+    "final_url": "https://www.hdfcfund.com/explore/mutual-funds/hdfc-elss-tax-saver-fund/direct",
+    "parser": "hdfc_scheme",
+    "page_type": "scheme_page",
+    "fetch_via": "jina_proxy",
+    "links_followed": 0,
+    "internal_links_discovered": 0,
+    "retrieved_at": "2026-11-07T21:45:09.823953+00:00"
+  }
+}

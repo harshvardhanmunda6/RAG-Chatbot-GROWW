@@ -1,0 +1,65 @@
+{
+  "source_id": "official_sebi_investor_education",
+  "url": "https://investor.sebi.gov.in/",
+  "final_url": "https://investor.sebi.gov.in/",
+  "title": "SEBI Investor Education",
+  "publisher": "Securities and Exchange Board of India",
+  "source_type": "sebi",
+  "citable": true,
+  "scheme_slugs": [],
+  "status": "cleaned",
+  "http_status": 200,
+  "fetched_at": "2026-11-07T21:45:17.362865Z",
+  "content_hash": "sha256:4f3cf6de9e49a74e436d3737b7e12f9a0b9104a62ca1ab23ace2ddc0b42defbb",
+  "clean_text_hash": "sha256:1e5a5a3eca59581417a14e6001e10dbf64138b477590311a121d2270c6bed36b",
+  "sections": [
+    {
+      "section_id": "section_1",
+      "heading": "Money Matters : Lets Understand",
+      "text": "This Section Will Provide You Understanding About Money Related Matters",
+      "order": 1
+    },
+    {
+      "section_id": "section_2",
+      "heading": "Investment : Avenue To Grow Your Money",
+      "text": "This section will provide you an essential guide on investments and asset class",
+      "order": 2
+    },
+    {
+      "section_id": "section_3",
+      "heading": "Securities Market Investment : Lets Learn",
+      "text": "This section helps you to know about investment avenues available in securities market",
+      "order": 3
+    },
+    {
+      "section_id": "section_4",
+      "heading": "Samajh Se Investing Simple",
+      "text": "Understand before you invest. Choose regulated investment products. Start early, stay invested. Beware of investment frauds.",
+      "order": 4
+    },
+    {
+      "section_id": "section_5",
+      "heading": "How jagrook are you?",
+      "text": "Take the SEBI Investor Awareness Test (SIAT) to find your readiness level and get a learning path built for it.",
+      "order": 5
+    },
+    {
+      "section_id": "section_6",
+      "heading": "Topics of Interest",
+      "text": "Advisory - SME segment Advisory - SME segment Secure Your Investment Account Secure Your Investment Account Podcasts Podcasts Nomination Nomination SMS and Email Alerts to Investors SMS and Email Alerts to Investors Apply in IPO through ASBA Apply in IPO through ASBA Due Diligence Due Diligence Consolidated Account Statement Consolidated Account Statement Market Index – Sensex & Nifty Market Index – Sensex & Nifty Bull and Bear Market Bull and Bear Market SMART Investor SMART Investor Dabba Trading Dabba Trading Caution to Investor Caution to Investor Beware of Fake Trading App Scam Beware of Fake Trading App Scam \"Stock Market Guru\" Scams \"Stock Market Guru\" Scams Pump and Dump Scam Pump and Dump Scam Awareness Messages Awareness Messages Video Based Learning Video Based Learning Investor Charter Investor Charter Awareness Programs Awareness Programs Investor Support Investor Support Request for Awareness Program Request for Awareness Program Video Gallery Video Gallery Events Events Partner with SEBI Partner with SEBI",
+      "order": 6
+    }
+  ],
+  "removed_sections": [],
+  "clean_text": "Money Matters : Lets Understand: This Section Will Provide You Understanding About Money Related Matters\n\nInvestment : Avenue To Grow Your Money: This section will provide you an essential guide on investments and asset class\n\nSecurities Market Investment : Lets Learn: This section helps you to know about investment avenues available in securities market\n\nSamajh Se Investing Simple: Understand before you invest. Choose regulated investment products. Start early, stay invested. Beware of investment frauds.\n\nHow jagrook are you?: Take the SEBI Investor Awareness Test (SIAT) to find your readiness level and get a learning path built for it.\n\nTopics of Interest: Advisory - SME segment Advisory - SME segment Secure Your Investment Account Secure Your Investment Account Podcasts Podcasts Nomination Nomination SMS and Email Alerts to Investors SMS and Email Alerts to Investors Apply in IPO through ASBA Apply in IPO through ASBA Due Diligence Due Diligence Consolidated Account Statement Consolidated Account Statement Market Index – Sensex & Nifty Market Index – Sensex & Nifty Bull and Bear Market Bull and Bear Market SMART Investor SMART Investor Dabba Trading Dabba Trading Caution to Investor Caution to Investor Beware of Fake Trading App Scam Beware of Fake Trading App Scam \"Stock Market Guru\" Scams \"Stock Market Guru\" Scams Pump and Dump Scam Pump and Dump Scam Awareness Messages Awareness Messages Video Based Learning Video Based Learning Investor Charter Investor Charter Awareness Programs Awareness Programs Investor Support Investor Support Request for Awareness Program Request for Awareness Program Video Gallery Video Gallery Events Events Partner with SEBI Partner with SEBI",
+  "metadata": {
+    "requested_url": "https://investor.sebi.gov.in/",
+    "final_url": "https://investor.sebi.gov.in/",
+    "parser": "generic_official",
+    "page_type": "official_education",
+    "fetch_via": "direct",
+    "links_followed": 0,
+    "internal_links_discovered": 0,
+    "retrieved_at": "2026-11-07T21:45:17.362865+00:00"
+  }
+}

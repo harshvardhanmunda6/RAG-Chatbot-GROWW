@@ -1,0 +1,95 @@
+{
+  "generated_at": "2026-11-08T08:40:39.415219+00:00",
+  "status": "citable_ready",
+  "collection_name": "mf_facts_v1_bc14e60c4766",
+  "collection_count": 61,
+  "expected_citable_count": 61,
+  "seed_inspection_collection": "mf_facts_v1_bc14e60c4766_seed",
+  "seed_inspection_count": 59,
+  "expected_seed_count": 59,
+  "manifest_hash": "sha256:bc14e60c4766038efd4c925dec16243da020b7bb8e317684798b66ab0e75e6f9",
+  "config_hash": "2d6e0043de5ec06f9b4ff22cfd619d04f32287708bba857de1fa59e599792ed7",
+  "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+  "model_revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+  "dimension": 384,
+  "distance": "cosine",
+  "chunker_version": "1.0",
+  "corpus_hash": "sha256:177766a3d06d4f70085a99e99a45750a019568346e860c81e5a20aac50c4b609",
+  "smoke_mode": "citable",
+  "smoke_passed": true,
+  "smoke_queries": [
+    {
+      "scheme_slug": "hdfc-elss-tax-saver-fund-direct-plan-growth",
+      "fact_type": "expense_ratio",
+      "expected_chunk_id": "ch_bb50efc8e546815f640aa7b7",
+      "returned_chunk_ids": [
+        "ch_bb50efc8e546815f640aa7b7"
+      ],
+      "passed": true,
+      "mode": "citable"
+    },
+    {
+      "scheme_slug": "hdfc-flexi-cap-direct-plan-growth",
+      "fact_type": "expense_ratio",
+      "expected_chunk_id": "ch_a8e5c49c22f57024747d9611",
+      "returned_chunk_ids": [
+        "ch_a8e5c49c22f57024747d9611"
+      ],
+      "passed": true,
+      "mode": "citable"
+    },
+    {
+      "scheme_slug": "hdfc-large-cap-fund-direct-growth",
+      "fact_type": "expense_ratio",
+      "expected_chunk_id": "ch_5a2e0b0b3a46d7076ae29a06",
+      "returned_chunk_ids": [
+        "ch_5a2e0b0b3a46d7076ae29a06"
+      ],
+      "passed": true,
+      "mode": "citable"
+    },
+    {
+      "scheme_slug": "hdfc-mid-cap-fund-direct-growth",
+      "fact_type": "expense_ratio",
+      "expected_chunk_id": "ch_adbab72f756530f44380b9db",
+      "returned_chunk_ids": [
+        "ch_adbab72f756530f44380b9db"
+      ],
+      "passed": true,
+      "mode": "citable"
+    },
+    {
+      "scheme_slug": "hdfc-mutual-fund",
+      "fact_type": "amc_overview",
+      "expected_chunk_id": "ch_8eb1f1a1af727dd87a9c51e8",
+      "returned_chunk_ids": [
+        "ch_8eb1f1a1af727dd87a9c51e8"
+      ],
+      "passed": true,
+      "mode": "citable"
+    },
+    {
+      "scheme_slug": "hdfc-mutual-fund-factsheets",
+      "fact_type": "narrative",
+      "expected_chunk_id": "ch_95c66752aea197d56aa3ffe5",
+      "returned_chunk_ids": [
+        "ch_95c66752aea197d56aa3ffe5"
+      ],
+      "passed": true,
+      "mode": "citable"
+    },
+    {
+      "scheme_slug": "sebi-investor-education",
+      "fact_type": "narrative",
+      "expected_chunk_id": "ch_163f3fe62612b4d0dd6e45c4",
+      "returned_chunk_ids": [
+        "ch_163f3fe62612b4d0dd6e45c4",
+        "ch_f27d1d1b6ab4bdd1f0f878f7",
+        "ch_6938c2799c9dfa548801e059"
+      ],
+      "passed": true,
+      "mode": "citable"
+    }
+  ],
+  "warnings": []
+}

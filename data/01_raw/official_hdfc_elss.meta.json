@@ -1,0 +1,25 @@
+{
+  "source_id": "official_hdfc_elss",
+  "requested_url": "https://www.hdfcfund.com/explore/mutual-funds/hdfc-elss-tax-saver-fund/direct",
+  "source_type": "amc",
+  "publisher": "HDFC Asset Management Company Limited",
+  "title": "HDFC ELSS Tax Saver Fund Direct Plan Growth",
+  "scheme_slugs": [
+    "hdfc-elss-tax-saver-fund-direct-plan-growth"
+  ],
+  "notes": "Official scheme page; citable",
+  "links_followed": 0,
+  "internal_links_discovered": 0,
+  "status": "ok",
+  "final_url": "https://www.hdfcfund.com/explore/mutual-funds/hdfc-elss-tax-saver-fund/direct",
+  "http_status": 200,
+  "content_type": "text/plain; charset=utf-8",
+  "content_length_header": null,
+  "bytes_written": 166868,
+  "content_hash": "sha256:cbffee62fe12bf7fc2a8370390498d590530e0a5c950778e89b9fd46de48e585",
+  "fetched_at": "2026-11-07T21:45:09.823953+00:00",
+  "parser": "hdfc_scheme",
+  "fetch_via": "jina_proxy",
+  "redirect_history": [],
+  "raw_path": "data/01_raw/official_hdfc_elss.html"
+}
