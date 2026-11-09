@@ -982,7 +982,7 @@ If resolution fails, no answer is rendered; the service returns a no-answer with
 
 | Tab | Contents |
 |---|---|
-| Ask | Welcome line, 3 example chips, question box, answer/refusal card, source link, date, disclaimer, inspect-answer expander |
+| Ask | Welcome line, 3 example chips, form-based question box, searching spinner, answer/refusal card with compact source line, inspect-answer expander |
 | Pipeline | Stage status, source counts, chunk samples, embedding manifest, Chroma report, latest retrieval trace |
 | Sources | Registry table, status, citable flag, fetched date, purpose |
 | Evaluation | Gold-set results, metrics, failure table |
@@ -993,16 +993,17 @@ If resolution fails, no answer is rendered; the service returns a no-answer with
 Header: HDFC Mutual Fund Facts Assistant
 Welcome: Ask a factual question about ...
 Examples: [Expense ratio] [ELSS lock-in] [Capital-gains statement]
-Input: text box + Ask button
+Form: [ question input ] [Ask]   (Enter submits; chips fill and submit)
+Loading: spinner "Searching..."
 Answer card:
   - answer text
-  - source link (exactly one)
-  - Last updated from sources: YYYY-MM-DD
-  - badge: AMC / SEBI / AMFI / Registrar
+  - compact source line: badge + linked official source + Last updated date
   - expander: Inspect this answer
-Note: Facts-only. No investment advice.
-Footer: full disclaimer + demo limitations
+Sidebar: collapsible "System status" expander for corpus and LLM messages
+Footer: fixed "Facts-only. No investment advice."
 ```
+
+The question input stays capped at 500 characters. PII input is blocked before retrieval and cleared after the refusal.
 
 ### 9.3 Session state
 
@@ -1011,6 +1012,7 @@ Footer: full disclaimer + demo limitations
 - No user identity, cookies, or login.
 - No PII fields or uploads.
 - Clear session button.
+- Corpus/index and LLM availability messages live in the sidebar status expander, not the Ask content.
 
 ### 9.4 Pipeline inspector
 

@@ -10,8 +10,6 @@ import streamlit as st
 from src.config import Settings
 from src.service import answer_question
 from src.ui.artifacts import (
-    corpus_state,
-    llm_state,
     prompt_artifact,
     raw_llm_artifact,
     retrieval_artifact,
@@ -45,23 +43,6 @@ def _handle_pending_question() -> None:
     if pending:
         st.session_state["question_input"] = pending
         st.session_state["pending_submit"] = True
-
-
-def _render_status(settings: Settings) -> None:
-    corpus = corpus_state(settings)
-    llm = llm_state(settings)
-    if corpus["state"] == "missing":
-        st.error(corpus["message"], icon="⛔")
-    elif corpus["state"] == "stale":
-        st.error(corpus["message"], icon="⛔")
-    elif corpus["state"] == "seed_only":
-        st.warning(corpus["message"], icon="⚠️")
-    else:
-        st.success(corpus["message"], icon="✅")
-
-    if llm["mode"] == "extractive":
-        st.info(f"{llm['label']} — {llm['detail']}. Answers use the extractive fact-card path.",
-                icon="ℹ️")
 
 
 def _render_examples() -> None:
@@ -196,7 +177,7 @@ def _render_inspect(settings: Settings, response: dict[str, Any]) -> None:
 
 
 def _run_answer(settings: Settings, question: str) -> None:
-    with st.spinner("Checking guardrails, retrieving evidence, and validating the answer…"):
+    with st.spinner("Searching..."):
         try:
             response = answer_question(question, settings)
         except Exception:  # noqa: BLE001 - never expose a traceback or secrets in the UI
@@ -225,17 +206,17 @@ def render(settings: Settings) -> None:
         "I answer from public official sources and always show one source."
     )
 
-    _render_status(settings)
     _render_examples()
 
     max_chars = int(settings.data.get("app", {}).get("max_question_chars", 500))
-    question = st.text_input(
-        "Your question",
-        key="question_input",
-        max_chars=max_chars,
-        placeholder="What is the exit load for HDFC Mid Cap Fund Direct Growth?",
-    )
-    submitted = st.button("Ask", type="primary", width="content")
+    with st.form("ask_form", clear_on_submit=False):
+        question = st.text_input(
+            "Your question",
+            key="question_input",
+            max_chars=max_chars,
+            placeholder="What is the exit load for HDFC Mid Cap Fund Direct Growth?",
+        )
+        submitted = st.form_submit_button("Ask", type="primary", width="content")
     pending_submit = bool(st.session_state.pop("pending_submit", False))
 
     if submitted or pending_submit:
@@ -244,7 +225,6 @@ def render(settings: Settings) -> None:
         else:
             _run_answer(settings, question)
 
-    st.caption("Facts-only. No investment advice.")
     st.caption(
         f"Questions are limited to {max_chars} characters. "
         "PAN, Aadhaar, account numbers, OTPs, emails, and phone numbers are blocked."

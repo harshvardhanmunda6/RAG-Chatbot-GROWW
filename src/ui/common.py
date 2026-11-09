@@ -29,7 +29,7 @@ def inject_css() -> None:
     st.markdown(
         """
 <style>
-  .block-container {padding-top: 1.6rem; padding-bottom: 2.5rem; max-width: 1080px;}
+  .block-container {padding-top: 1.6rem; padding-bottom: 4.25rem; max-width: 1080px;}
   .mf-kicker {letter-spacing: .08em; text-transform: uppercase; font-size: .72rem;
               color: #6b7280; margin-bottom: .15rem;}
   .mf-subtle {color: #6b7280; font-size: .9rem;}
@@ -37,9 +37,21 @@ def inject_css() -> None:
                     color: #6b7280; margin-bottom: .25rem;}
   .mf-pill {display: inline-block; padding: .12rem .5rem; border-radius: 999px;
             border: 1px solid #d1d5db; font-size: .74rem; color: #374151;}
+  .mf-source-line {border-top: 1px solid #e5e7eb; margin-top: .9rem; padding-top: .55rem;
+                   color: #6b7280; font-size: .82rem; line-height: 1.5;}
+  .mf-source-line a {color: #0f766e; text-decoration: none; font-weight: 600;}
+  .mf-source-line a:hover {text-decoration: underline;}
+  .mf-source-date {display: inline-block; margin-left: .3rem;}
+  .mf-fixed-footer {position: fixed; left: 0; right: 0; bottom: 0; z-index: 999;
+                    padding: .42rem 1rem; text-align: center; font-size: .78rem;
+                    color: #4b5563; background: rgba(255,255,255,.96);
+                    border-top: 1px solid #e5e7eb; backdrop-filter: blur(8px);}
   @media (max-width: 480px) {
-    .block-container {padding-left: 1rem; padding-right: 1rem; padding-top: 1rem;}
+    .block-container {padding-left: 1rem; padding-right: 1rem; padding-top: 1rem;
+                      padding-bottom: 4rem;}
     h1 {font-size: 1.55rem !important;}
+    .mf-source-line {font-size: .78rem;}
+    .mf-fixed-footer {font-size: .74rem; padding: .35rem .75rem;}
   }
 </style>
 """,
@@ -71,19 +83,25 @@ def render_sidebar(settings: Settings) -> None:
     corpus = corpus_state(settings)
     llm = llm_state(settings)
     with st.sidebar:
-        st.markdown("### System status")
-        st.markdown(
-            f"**Corpus** {STATUS_ICON.get(corpus['state'], '•')}  \n"
-            f"<span class='mf-subtle'>{escaped(corpus['status'])} · "
-            f"{corpus['count']} citable · {corpus['seed_count']} seed</span>",
-            unsafe_allow_html=True,
-        )
-        if llm["mode"] == "extractive":
-            st.warning(llm["label"], icon="⚠️")
-            st.caption(llm["detail"])
-        else:
-            st.success(llm["label"], icon="✅")
-            st.caption(llm["detail"])
+        with st.expander("System status", expanded=False):
+            if corpus["state"] == "ready":
+                st.success(corpus["message"], icon="✅")
+            elif corpus["state"] == "seed_only":
+                st.warning(corpus["message"], icon="⚠️")
+            else:
+                st.error(corpus["message"], icon="⛔")
+            st.caption(
+                f"{STATUS_ICON.get(corpus['state'], '•')} {corpus['status']} · "
+                f"{corpus['count']} citable · {corpus['seed_count']} seed"
+            )
+
+            st.divider()
+            if llm["mode"] == "extractive":
+                st.warning(llm["label"], icon="⚠️")
+                st.caption(llm["detail"])
+            else:
+                st.success(llm["label"], icon="✅")
+                st.caption(llm["detail"])
 
         st.divider()
         if st.button("Clear session", width="stretch"):
@@ -110,24 +128,37 @@ def render_answer_card(response: dict[str, Any]) -> None:
         )
         st.markdown(answer)
 
+        source_parts: list[str] = []
         if citation and citation.get("url"):
-            st.markdown(f"**Source badge:** <span class='mf-pill'>{escaped(badge)}</span>",
-                        unsafe_allow_html=True)
-            st.link_button(
-                citation.get("title") or "Official source",
-                citation.get("url") or "",
-                width="content",
+            source_parts.append(
+                f"<span class='mf-pill'>{escaped(badge)}</span>"
+            )
+            source_parts.append(
+                f"<a href='{escaped(citation.get('url'))}' target='_blank' "
+                f"rel='noopener noreferrer'>"
+                f"{escaped(citation.get('title') or 'Official source')}</a>"
             )
         elif citation:
-            st.caption("Citation has no approved URL.")
+            source_parts.append("Citation has no approved URL.")
         elif answer_type == "clarification":
-            st.caption("No citation yet — clarify the scheme or fact first.")
+            source_parts.append("No citation yet — clarify the scheme or fact first.")
         elif answer_type == "invalid":
-            st.caption("No source is needed for this input.")
+            source_parts.append("No source is needed for this input.")
         else:
-            st.caption("Source unavailable — no approved official citation is configured yet.")
+            source_parts.append(
+                "Source unavailable — no approved official citation is configured yet."
+            )
 
-        st.caption(f"Last updated from sources: {response.get('last_updated') or '—'}")
+        source_parts.append(
+            f"<span class='mf-source-date'>Last updated from sources: "
+            f"{escaped(response.get('last_updated') or '—')}</span>"
+        )
+        st.markdown(
+            "<div class='mf-source-line'>"
+            + " <span aria-hidden='true'>·</span> ".join(source_parts)
+            + "</div>",
+            unsafe_allow_html=True,
+        )
 
     if response.get("fallback_used"):
         reason = str(response.get("fallback_reason") or "")
@@ -148,10 +179,12 @@ def render_footer(settings: Settings) -> None:
     disclaimer = settings.data.get("app", {}).get(
         "disclaimer", "Facts-only. No investment advice."
     )
-    st.divider()
-    st.markdown(f"**{disclaimer}**")
     st.caption(
         "Answers are based on public official sources and are not a recommendation to buy, "
         "sell, or hold any scheme. Mutual fund investments are subject to market risks; "
         "read all scheme-related documents carefully."
+    )
+    st.markdown(
+        f"<div class='mf-fixed-footer'>{escaped(disclaimer)}</div>",
+        unsafe_allow_html=True,
     )

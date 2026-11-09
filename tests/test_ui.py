@@ -19,6 +19,9 @@ assert labels[:3] == ["Ask", "Pipeline", "Sources"], labels
 assert "Evaluation" in labels, labels
 assert any(title.value == "HDFC Mutual Fund Facts Assistant" for title in at.title)
 assert not any("GROQ_API_KEY" in str(item.value) for item in at.markdown)
+assert at.text_input[0].max_chars == 500
+assert any(expander.label == "System status" for expander in at.sidebar.expander)
+assert any("mf-fixed-footer" in str(item.value) for item in at.markdown)
 
 at.text_input[0].set_value("   ")
 next(button for button in at.button if button.label == "Ask").click().run()

@@ -762,21 +762,25 @@ Ask a factual question about HDFC Large Cap, Flexi Cap, ELSS Tax Saver,
 Mid Cap, or HDFC Mutual Fund. I answer from public official sources and
 always show one source.
 
-[ What is the expense ratio of HDFC Large Cap Fund Direct Growth? ]
-[ What is the lock-in period for HDFC ELSS Tax Saver? ]
-[ Where can I download a capital-gains statement? ]
+[ Large Cap expense ratio ]
+[ ELSS lock-in ]
+[ Capital-gains statement ]
 
-[ question input ] [Ask]
+[ question input ] [Ask]     ← st.form; Enter submits
 
-Facts-only. No investment advice.
+Searching...                ← st.spinner while answering
+
+Sidebar → System status (collapsible): corpus/index and LLM messages
+Footer: Facts-only. No investment advice. (fixed)
 ```
+
+The three example chips fill the question input and submit the query in one click. The input keeps the 500-character cap, and PII is blocked before retrieval and cleared from the visible input after the refusal.
 
 ### 9.2 Answer card
 
 - Answer, ≤3 sentences
-- One clickable source link with title
+- Compact source line: badge + linked source title + `Last updated from sources: YYYY-MM-DD`
 - Source badge: AMC / SEBI / AMFI / Registrar
-- `Last updated from sources: YYYY-MM-DD`
 - `Inspect this answer` expander: chunk IDs, scores, filters, validation
 - If fallback: `Extractive answer — LLM unavailable`
 
@@ -816,7 +820,7 @@ Show every stage:
 
 ### 9.6 Footer disclaimer
 
-> **Facts-only. No investment advice.** Answers are based on public official sources and are not a recommendation to buy, sell, or hold any scheme. Mutual fund investments are subject to market risks; read all scheme-related documents carefully.
+A small fixed footer reads **“Facts-only. No investment advice.”** The full disclaimer remains in the page flow above it: answers are based on public official sources and are not a recommendation to buy, sell, or hold any scheme. Mutual fund investments are subject to market risks; read all scheme-related documents carefully.
 
 ### 9.7 Run
 
@@ -827,7 +831,8 @@ streamlit run app.py
 ### 9.8 Implementation notes
 
 - `app.py` owns page config, the four top-level tabs, the sidebar status, session clearing, and the footer disclaimer.
-- `src/ui/ask.py` is the only tab that calls `answer_question`. It stores only the current answer in session state and never shows raw PII.
+- `src/ui/ask.py` uses `st.form` for the question/Ask controls, so Enter and the Ask button submit the same query; example chips fill the input and submit it. It is the only tab that calls `answer_question`, shows `st.spinner("Searching...")`, stores only the current answer in session state, and never shows raw PII.
+- `.streamlit/config.toml` defines the light theme; `src/ui/common.py` owns the compact source line, sidebar status expander, and fixed facts-only footer.
 - `src/ui/pipeline.py` reads each stage artifact directly: sources, load/clean, chunks/facts, embeddings, Chroma, retrieval, and prompt/LLM/validation.
 - `src/ui/sources.py` separates approved/citable rows from seed-only rows and shows the coverage matrix.
 - `src/ui/evaluation.py` reads `data/08_eval/` and renders a clear empty state until a gold-set run exists.
