@@ -33,7 +33,7 @@ Every factual answer has:
 | Vector store | Chroma `mf_facts_v1_bc14e60c4766` |
 | Gold set | 25 questions, **25/25 passed** |
 | Local LLM | Gemini `gemini-3.5-flash-lite` via `.env` (key not committed) |
-| UI | Streamlit: FundFacts chat, topic sidebar, inline sources, developer views |
+| UI | Streamlit: FundFacts chat, topic sidebar, source cards with excerpts, developer views |
 
 The latest evaluation is in [eval_report.md](eval_report.md); generated artifacts are in `data/08_eval/`.
 
@@ -141,9 +141,9 @@ Keep `GEMINI_API_KEY` as a Render secret. The free 512 MB plan may not have enou
 
 ## UI design reference
 
-The UI follows the linked Lovable prototype at [newai-iota-indol.vercel.app](https://newai-iota-indol.vercel.app/): a 300 px FundFacts sidebar with the shield logo, New chat, two stat cards, `EXPLORE A TOPIC` pills, and a `WHY TRUST IT` checklist; a centered hero with three suggestion buttons; a gradient facts-only banner; mint user bubbles and white assistant cards with an inline source URL and last-updated date; and a fixed rounded composer with a 500-character input and round green send button.
+The UI follows the linked Lovable prototype at [newai-iota-indol.vercel.app](https://newai-iota-indol.vercel.app/): a 300 px FundFacts sidebar with the shield logo, New chat, two stat cards, `EXPLORE A TOPIC` pills, and a `WHY TRUST IT` checklist; a centered hero with three suggestion buttons; a gradient facts-only banner; mint user bubbles and white assistant cards with a source card (title link and last-updated date) plus an expandable supporting excerpt; and a fixed rounded composer with a 500-character input and round green send button.
 
-The Streamlit implementation is in `app.py`, `src/ui/ask.py`, and `src/ui/common.py`; the lavender/green theme is in `.streamlit/config.toml`; the logo is `assets/logo.svg`. The linked prototype does not include a dark-mode toggle, RECENT history, source-card expander, or copy/feedback controls, so those were removed to match it. Pipeline, Sources, and Evaluation remain available through the collapsed System status expander in the sidebar. See [architecture.md](architecture.md) §9.6, [implementation.md](implementation.md) §9.9, and `design/README.md`.
+The Streamlit implementation is in `app.py`, `src/ui/ask.py`, and `src/ui/common.py`; the lavender/green theme is in `.streamlit/config.toml`; the logo is `assets/logo.svg`. The source card adapts the prototype's inline source row using the same palette, type, radius, and shadow. Dark mode, RECENT history, copy/feedback controls, and the live character counter remain removed. Pipeline, Sources, and Evaluation remain available through the collapsed System status expander in the sidebar. See [architecture.md](architecture.md) §9.6, [implementation.md](implementation.md) §9.9, and `design/README.md`.
 
 The older StitchWithGoogle export was never present in the workspace and is not required for the restyle.
 ## Limitations

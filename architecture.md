@@ -101,7 +101,7 @@ flowchart LR
 
 | Container | Responsibility | Technology | Persistence |
 |---|---|---|---|
-| Streamlit UI | Chat, inline source links, sidebar topics/status, developer views | Streamlit | None; session state only |
+| Streamlit UI | Chat, source cards with excerpts, sidebar topics/status, developer views | Streamlit | None; session state only |
 | Query service | Orchestrates guardrails → retrieval → generation → validation | Python | Trace/answer JSON |
 | Ingestion CLI | Load, clean, chunk, extract facts, embed, index, validate sources | Python CLI | `data/` artifacts |
 | ChromaDB | Vector search over chunk embeddings with metadata filters | Chroma persistent client | `data/05_vector/chroma/` |
@@ -982,7 +982,7 @@ If resolution fails, no answer is rendered; the service returns a no-answer with
 
 | View | Contents |
 |---|---|
-| Chat (default) | FundFacts welcome, topic sidebar, facts-only banner, chat messages with one inline source, fixed composer |
+| Chat (default) | FundFacts welcome, topic sidebar, facts-only banner, chat messages with one source card, fixed composer |
 | Pipeline | Developer view: stage status, source counts, chunk samples, embedding manifest, Chroma report, latest retrieval trace |
 | Sources | Developer view: registry table, status, citable flag, fetched date, purpose |
 | Evaluation | Developer view: gold-set results, metrics, failure table |
@@ -1002,12 +1002,12 @@ Main:    Hero: "Mutual Fund Facts Assistant"
                 [🔍 lock-in] [％ exit load] [🛡️ Should I invest...?]
          Banner: gradient card with "Facts-only. No investment advice." + explanation
          User: mint bubble, right-aligned, max 85%
-         Assistant: white card, label, answer, inline source URL, last-updated date
+         Assistant: white card, label, answer, source card with title link, last-updated date, expandable supporting excerpt
          Loading: three pulsing green dots in an assistant card
 Composer: fixed st.form, 500-character input, round green ↑, disabled when empty
 ```
 
-The composer enforces the 500-character cap. PII is redacted by the guardrail before a pending question is rendered, and the stored turn uses `question_redacted`. Every factual answer keeps one official inline source link and the `Last updated from sources` date. The main column is capped at 768 px. The three welcome suggestions and the sidebar topics ask their question directly instead of filling the input.
+The composer enforces the 500-character cap. PII is redacted by the guardrail before a pending question is rendered, and the stored turn uses `question_redacted`. Every factual answer keeps one official source card with a title link, the `Last updated from sources` date, and an expandable supporting excerpt loaded from the retrieval trace. The main column is capped at 768 px. The three welcome suggestions and the sidebar topics ask their question directly instead of filling the input.
 
 ### 9.3 Session state
 
@@ -1047,11 +1047,11 @@ The UI follows the linked Lovable prototype at `https://newai-iota-indol.vercel.
 
 - 300 px lavender sidebar with the FundFacts shield logo, `FundFacts` wordmark, `Mutual fund assistant` subtitle, `✨ New chat`, two stat cards, nine `EXPLORE A TOPIC` pills, and a `WHY TRUST IT` checklist.
 - Centered welcome hero `Mutual Fund Facts Assistant`, subtitle, three full-width suggestion buttons, and a gradient facts-only banner.
-- Chat messages use `st.chat_message` with avatars hidden: mint user bubbles on the right and white assistant cards with a status label, answer text, inline `🔗` source URL, and `Last updated from sources: YYYY-MM-DD`.
+- Chat messages use `st.chat_message` with avatars hidden: mint user bubbles on the right and white assistant cards with a status label, answer text, a source card with a title link, `Last updated from sources: YYYY-MM-DD`, and an expandable supporting excerpt.
 - Fixed rounded composer with a borderless 500-character input and a round green `↑` send button; the button is disabled while the input is empty.
 - Tokens: surface `#FAF8FF`, low `#F2F3FF`, mid `#EAEDFF`, ink `#131B2E`, muted `#3C4A43`, primary `#006C4F`, accent `#00B386`, link `#005AC2`, error `#BA1A1A`; Inter body text and Plus Jakarta Sans headings.
 
-The linked prototype does not include a dark-mode toggle, RECENT history, a bordered source-card expander, or copy/feedback controls. Those were removed so the Streamlit UI matches the reference. Pipeline, Sources, and Evaluation remain available from the collapsed System status expander. The custom CSS lives in one injected `st.markdown` block in `src/ui/common.py`; the Streamlit theme in `.streamlit/config.toml` matches the same palette. The prototype does not override the product safety rules: no PII inputs, no uploads, no login, no persistent chat history, no system prompt, and no secrets.
+The source card adapts the prototype's inline source row using the same palette, type, radius, and shadow; the supporting excerpt is a display-only read of the cited chunk from the retrieval trace. Dark mode, RECENT history, copy/feedback controls, and the live character counter remain removed. Pipeline, Sources, and Evaluation remain available from the collapsed System status expander. The custom CSS lives in one injected `st.markdown` block in `src/ui/common.py`; the Streamlit theme in `.streamlit/config.toml` matches the same palette. The prototype does not override the product safety rules: no PII inputs, no uploads, no login, no persistent chat history, no system prompt, and no secrets.
 
 The older Stitch export is not required for this restyle and was not present in the workspace. AppTest and a local `streamlit run app.py` health check are the available verification steps in this environment.
 

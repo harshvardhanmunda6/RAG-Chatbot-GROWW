@@ -10,6 +10,7 @@ import streamlit as st
 from src.config import Settings
 from src.guardrails import check_question
 from src.service import answer_question
+from src.ui.artifacts import retrieval_artifact
 from src.ui.common import SUGGESTIONS, escaped
 
 
@@ -20,6 +21,35 @@ def _safe_id(value: Any) -> str:
 def _redacted_question(settings: Settings, question: str) -> str:
     guardrail = check_question(question, settings)
     return (guardrail.redacted_question or question).strip()
+
+
+def _supporting_excerpt(settings: Settings, response: dict[str, Any]) -> str:
+    """Read the cited chunk from the retrieval trace for the source-card excerpt."""
+    citation = response.get("citation")
+    if not isinstance(citation, dict):
+        citation = {}
+    trace_id = str(response.get("retrieval_trace_id") or "").strip()
+    chunk_id = str(citation.get("chunk_id") or "").strip()
+    if not trace_id:
+        return ""
+    trace = retrieval_artifact(settings, trace_id) or {}
+    hits = trace.get("selected_hits") or []
+    if not isinstance(hits, list):
+        return ""
+    selected = next(
+        (
+            hit
+            for hit in hits
+            if isinstance(hit, dict) and str(hit.get("chunk_id") or "") == chunk_id
+        ),
+        None,
+    )
+    if selected is None:
+        selected = next((hit for hit in hits if isinstance(hit, dict)), None)
+    text = " ".join(str((selected or {}).get("text") or "").split())
+    if len(text) > 1600:
+        text = text[:1597].rstrip() + "…"
+    return text
 
 
 def _render_hero() -> None:
@@ -75,34 +105,60 @@ def _answer_label(response: dict[str, Any]) -> tuple[str, str]:
     return "not_found", "Not in sources"
 
 
-def _render_assistant_message(turn_id: str, response: dict[str, Any]) -> None:
+def _render_assistant_message(
+    turn_id: str, response: dict[str, Any], excerpt: str = ""
+) -> None:
     label_class, label = _answer_label(response)
     answer = str(response.get("answer") or "No answer was generated.")
-    citation = response.get("citation") or {}
+    citation = response.get("citation")
+    if not isinstance(citation, dict):
+        citation = {}
     url = str(citation.get("url") or "").strip()
     title = str(citation.get("title") or "").strip()
-    last_updated = str(response.get("last_updated") or "").strip()
+    publisher = str(citation.get("publisher") or "").strip()
+    last_updated = str(
+        citation.get("last_updated") or response.get("last_updated") or ""
+    ).strip()
 
     source_html = ""
     if url.startswith("https://"):
-        source_html = (
-            f"<div class='ff-source'>🔗 <a href='{escaped(url)}' target='_blank' "
-            f"rel='noopener noreferrer' title='{escaped(title)}'>{escaped(url)}</a></div>"
+        link_text = title or url
+        meta_parts = []
+        if publisher:
+            meta_parts.append(escaped(publisher))
+        if last_updated:
+            meta_parts.append(f"Last updated from sources: {escaped(last_updated)}")
+        meta_html = (
+            f"<div class='ff-source-meta'>{' · '.join(meta_parts)}</div>"
+            if meta_parts
+            else ""
         )
-    updated_html = (
-        f"<div class='ff-updated'>Last updated from sources: {escaped(last_updated)}</div>"
-        if last_updated
-        else ""
-    )
+        card_class = "ff-source-card has-excerpt" if excerpt else "ff-source-card"
+        source_html = (
+            f"<div class='{card_class}'>"
+            "<div class='ff-source-kicker'>SOURCE</div>"
+            f"<a class='ff-source-title' href='{escaped(url)}' target='_blank' "
+            f"rel='noopener noreferrer'>{escaped(link_text)}</a>"
+            f"{meta_html}"
+            "</div>"
+        )
 
     with st.container(key=f"ff_assistant_{turn_id}"):
         with st.chat_message("assistant", avatar=None):
             st.markdown(
                 f"<div class='ff-label {label_class}'>{label}</div>"
-                f"<div class='ff-text'>{escaped(answer)}</div>"
-                f"{source_html}{updated_html}",
+                f"<div class='ff-text'>{escaped(answer)}</div>",
                 unsafe_allow_html=True,
             )
+            if source_html:
+                with st.container(key=f"ff_source_{turn_id}"):
+                    st.markdown(source_html, unsafe_allow_html=True)
+                    if excerpt:
+                        with st.expander("Supporting excerpt", expanded=False):
+                            st.markdown(
+                                f"<div class='ff-excerpt'>{escaped(excerpt)}</div>",
+                                unsafe_allow_html=True,
+                            )
 
 
 def _render_loading() -> None:
@@ -186,9 +242,11 @@ def _render_composer(settings: Settings, max_chars: int) -> None:
 
 
 def _run_answer(settings: Settings, question: str, redacted: str) -> None:
+    excerpt = ""
     try:
         response = answer_question(question, settings)
         payload = response.model_dump(mode="json")
+        excerpt = _supporting_excerpt(settings, payload)
         stored_question = response.question_redacted or redacted or question
     except Exception:  # noqa: BLE001 - never expose a traceback or secrets in the UI
         payload = {
@@ -203,6 +261,7 @@ def _run_answer(settings: Settings, question: str, redacted: str) -> None:
             "id": str(payload.get("trace_id") or f"error_{len(history)}"),
             "question": stored_question,
             "response": payload,
+            "excerpt": excerpt,
         }
     )
 
@@ -228,7 +287,11 @@ def render(settings: Settings) -> None:
         for turn in history:
             turn_id = _safe_id(turn.get("id"))
             _render_user_message(turn_id, str(turn.get("question") or ""))
-            _render_assistant_message(turn_id, turn.get("response") or {})
+            _render_assistant_message(
+                turn_id,
+                turn.get("response") or {},
+                str(turn.get("excerpt") or ""),
+            )
 
         if pending_question:
             _render_user_message("pending", redacted)

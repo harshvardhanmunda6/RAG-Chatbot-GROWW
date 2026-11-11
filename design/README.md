@@ -17,8 +17,9 @@ the workspace and is not required for this restyle.
 - Main: centered `Mutual Fund Facts Assistant` hero, subtitle, three full-width
   suggestion buttons, and a gradient facts-only banner.
 - Chat: `st.chat_message` with avatars hidden; mint user bubbles right-aligned;
-  white assistant cards with a status label, answer text, inline `🔗` source
-  URL, and `Last updated from sources: YYYY-MM-DD`.
+  white assistant cards with a status label, answer text, a source card with a
+  title link, `Last updated from sources: YYYY-MM-DD`, and an expandable
+  supporting excerpt.
 - Status labels: `✓ Verified from source` (green), `🛡 Facts-only policy`
   (red), `Not in sources` (blue), and `Temporarily unavailable` (red).
 - Loading: three pulsing green dots inside an assistant card.
@@ -29,15 +30,16 @@ the workspace and is not required for this restyle.
   `#BA1A1A`; Inter body text and Plus Jakarta Sans headings.
 - Pipeline, Sources, and Evaluation remain available from the collapsed
   `System status` expander in the sidebar.
-- The linked prototype has no dark-mode toggle, RECENT history, source-card
-  expander, copy/feedback controls, or live character counter, so those were
-  removed to match it.
+- The source card adapts the prototype's inline source row using the same
+  palette, type, radius, and shadow. Dark mode, RECENT history, copy/feedback
+  controls, and the live character counter remain removed.
 
 ## Verification
 
 - AppTest covers startup, branding copy, the 500-character cap, suggestion and
   topic buttons, PII redaction before display, blank submits, New chat, the
-  collapsed status/developer selector, and a source-linked answer.
+  collapsed status/developer selector, and a source card with a supporting
+  excerpt.
 - A local `streamlit run app.py` health check returns HTTP 200.
 - Browser-driven screenshot verification is unavailable in this environment.
 

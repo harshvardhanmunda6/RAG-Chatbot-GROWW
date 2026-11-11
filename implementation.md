@@ -791,9 +791,9 @@ The three welcome suggestions and the sidebar topics ask their question directly
   - `no_answer` / `clarification` / `invalid` → `Not in sources` in blue
   - pipeline exception → `Temporarily unavailable` in red
 - Answer text, ≤3 sentences, with preserved line breaks.
-- One inline source row: `🔗 https://...` in blue, opening in a new tab, with the source title as a tooltip.
-- `Last updated from sources: YYYY-MM-DD` below the source.
-- No bordered source-card icon, no supporting-excerpt expander, no copy or thumbs controls. The linked prototype does not include them.
+- One source card below the answer: the official source title is the blue link, and the publisher plus `Last updated from sources: YYYY-MM-DD` sit beneath it.
+- The source card ends with a collapsed `Supporting excerpt` expander. The excerpt is the cited chunk read from the retrieval trace; it is display-only and does not change retrieval or answer logic.
+- No copy or thumbs controls. Dark mode, RECENT history, and the live character counter remain removed to match the prototype.
 - Loading is an assistant card with three pulsing green dots, not a Streamlit spinner.
 - The transcript keeps all turns in order. New chat clears the transcript and returns to the welcome state.
 
@@ -803,8 +803,10 @@ The three welcome suggestions and the sidebar topics ask their question directly
 🛡 Facts-only policy
 I can only share factual scheme information, not investment advice.
 For official investor education, see [SEBI Investor Education].
-🔗 https://...
-Last updated from sources: YYYY-MM-DD
+SOURCE
+[Official source title]
+Publisher · Last updated from sources: YYYY-MM-DD
+▸ Supporting excerpt
 ```
 
 PII refusal explains that PAN/Aadhaar/account/OTP/email/phone are not accepted and shows the redacted question. Out-of-scope returns the AMC overview link when available. Performance refusals link to the official factsheet.
@@ -864,12 +866,12 @@ The UI follows the linked Lovable prototype at `https://newai-iota-indol.vercel.
 
 - 300 px lavender sidebar with the FundFacts shield logo, wordmark, subtitle, New chat, two stat cards, nine topic pills, and a four-line trust note.
 - Centered hero, three suggestion buttons, gradient facts-only banner, and a 768 px chat column.
-- `st.chat_message` user/assistant presentation with avatars hidden, inline source URL, last-updated date, and pulsing-dot loading card.
+- `st.chat_message` user/assistant presentation with avatars hidden, a source card with a title link, last-updated date, expandable supporting excerpt, and a pulsing-dot loading card.
 - Fixed rounded `st.form` composer with a 500-character input and round green send button.
 - Tokens: surface `#FAF8FF`, low `#F2F3FF`, mid `#EAEDFF`, ink `#131B2E`, muted `#3C4A43`, primary `#006C4F`, accent `#00B386`, link `#005AC2`, error `#BA1A1A`; Inter body text and Plus Jakarta Sans headings.
 - Pipeline, Sources, and Evaluation are retained inside the collapsed System status expander.
 
-The custom CSS is one injected block in `src/ui/common.py`; the theme is in `.streamlit/config.toml`. The linked prototype does not include a dark-mode toggle, RECENT history, source-card expander, copy/feedback controls, or a live character counter; those were removed to match the reference. The older Stitch export is not required and was not present in the workspace. AppTest and a local health check are the available verification steps; browser-driven screenshot verification is unavailable in this environment.
+The custom CSS is one injected block in `src/ui/common.py`; the theme is in `.streamlit/config.toml`. The source card adapts the prototype's inline source row with the same palette, type, radius, and shadow. Dark mode, RECENT history, copy/feedback controls, and the live character counter remain removed. The older Stitch export is not required and was not present in the workspace. AppTest and a local health check are the available verification steps; browser-driven screenshot verification is unavailable in this environment.
 
 ---
 

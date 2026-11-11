@@ -89,7 +89,12 @@ html, body, .stApp, button, input, textarea, [class*="css"] {
   background: var(--ff-surface);
   color: var(--ff-ink);
 }
-[data-testid="stHeader"] {background: transparent;}
+/* Streamlit chrome is removed except the mobile sidebar toggle. */
+[data-testid="stHeader"] {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
 [data-testid="stToolbar"], #MainMenu, footer,
 [data-testid="stDecoration"], [data-testid="stStatusWidget"] {
   display: none !important;
@@ -329,21 +334,87 @@ html, body, .stApp, button, input, textarea, [class*="css"] {
   white-space: pre-wrap;
   overflow-wrap: anywhere;
 }
-.ff-source {
-  display: inline-block;
-  max-width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  margin-top: .5rem;
+[class*="st-key-ff_source_"] {margin-top: .65rem;}
+[class*="st-key-ff_source_"] > [data-testid="stVerticalBlock"] {gap: 0;}
+[class*="st-key-ff_source_"] [data-testid="stMarkdownContainer"] {margin: 0;}
+[class*="st-key-ff_source_"] [data-testid="stMarkdownContainer"] p {margin: 0;}
+.ff-source-card {
   background: var(--ff-low);
-  border-radius: .6rem;
-  padding: .3rem .7rem;
-  font-size: .8rem;
+  border: 1px solid var(--ff-mid);
+  border-radius: .8rem;
+  padding: .65rem .8rem .6rem;
 }
-.ff-source a {color: var(--ff-link); text-decoration: none;}
-.ff-source a:hover {text-decoration: underline;}
-.ff-updated {color: var(--ff-muted); font-size: .74rem; margin-top: .35rem;}
+.ff-source-card.has-excerpt {
+  border-radius: .8rem .8rem 0 0;
+  border-bottom: 0;
+}
+.ff-source-kicker {
+  font-size: .62rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  color: var(--ff-muted);
+  margin-bottom: .18rem;
+}
+.ff-source-title {
+  display: block;
+  color: var(--ff-link);
+  font-size: .84rem;
+  font-weight: 600;
+  line-height: 1.35;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+.ff-source-title:hover {text-decoration: underline;}
+.ff-source-meta {
+  margin-top: .28rem;
+  color: var(--ff-muted);
+  font-size: .72rem;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+[class*="st-key-ff_source_"] [data-testid="stExpander"] {
+  border: 1px solid var(--ff-mid);
+  border-top: 0;
+  border-radius: 0 0 .8rem .8rem;
+  background: var(--ff-low);
+  box-shadow: none;
+  margin: 0;
+  overflow: hidden;
+}
+[class*="st-key-ff_source_"] [data-testid="stExpander"] details,
+[class*="st-key-ff_source_"] [data-testid="stExpander"] details > summary {
+  border: 0;
+  background: transparent;
+}
+[class*="st-key-ff_source_"] [data-testid="stExpander"] summary {
+  padding: .38rem .8rem;
+  color: var(--ff-link);
+  font-size: .74rem;
+  font-weight: 500;
+}
+[class*="st-key-ff_source_"] [data-testid="stExpander"] summary p {
+  margin: 0;
+  font-size: inherit;
+  font-weight: inherit;
+  color: inherit;
+}
+[class*="st-key-ff_source_"] [data-testid="stExpander"] summary:hover {
+  color: var(--ff-primary);
+}
+[class*="st-key-ff_source_"] [data-testid="stExpander"] [data-testid="stExpanderDetails"],
+[class*="st-key-ff_source_"] [data-testid="stExpander"] .streamlit-expanderContent {
+  border-top: 1px solid var(--ff-mid);
+  padding: .45rem .8rem .65rem;
+}
+.ff-excerpt {
+  color: var(--ff-muted);
+  font-size: .82rem;
+  line-height: 1.55;
+  max-height: 190px;
+  overflow: auto;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
 .ff-dots span {
   display: inline-block;
   width: 7px;
@@ -458,6 +529,15 @@ html, body, .stApp, button, input, textarea, [class*="css"] {
     background: var(--ff-low);
     color: var(--ff-ink);
     margin: .6rem 0 0 .75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  [data-testid="stExpandSidebarButton"] svg {display: none;}
+  [data-testid="stExpandSidebarButton"]::before {
+    content: "☰";
+    font-size: 1.15rem;
+    line-height: 1;
   }
   .stMainBlockContainer {
     padding: 3.6rem .9rem 7.5rem;
@@ -469,7 +549,8 @@ html, body, .stApp, button, input, textarea, [class*="css"] {
   }
   .ff-hero h1 {font-size: 1.6rem;}
   .ff-hero p {font-size: .9rem;}
-  .ff-source {max-width: 100%;}
+  .ff-source-title {font-size: .82rem;}
+  .ff-source-meta {font-size: .7rem;}
 }
 </style>
 """,

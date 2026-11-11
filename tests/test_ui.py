@@ -62,7 +62,11 @@ assert not at.exception, [error.value for error in at.exception]
 history = at.session_state.get("chat_history", [])
 assert history and history[0]["response"]["answer_type"] == "fact"
 assert any("✓ Verified from source" in str(item.value) for item in at.markdown)
+assert any("ff-source-card" in str(item.value) for item in at.markdown)
+assert any("ff-source-title" in str(item.value) for item in at.markdown)
 assert any("Last updated from sources:" in str(item.value) for item in at.markdown)
+assert any(expander.label == "Supporting excerpt" for expander in at.expander)
+assert any("ff-excerpt" in str(item.value) for item in at.markdown)
 print("app smoke ok")
 """
 
