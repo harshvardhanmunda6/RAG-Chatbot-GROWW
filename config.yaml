@@ -1,5 +1,5 @@
 app:
-  title: "HDFC Mutual Fund Facts Assistant"
+  title: "FundFacts"
   max_question_chars: 500
   max_answer_sentences: 3
   disclaimer: "Facts-only. No investment advice."

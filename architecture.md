@@ -44,7 +44,7 @@ The architecture assumes the PRD’s recommended source policy:
 | No performance claims | PRD C4, FR-12 | Performance sections stripped at ingestion; performance intent blocked at query time |
 | No PII | PRD C5, FR-13 | PII detection before logging, retrieval, or generation |
 | ≤3 sentences | PRD C6, FR-10 | Deterministic sentence validator after generation |
-| Stage visibility | PRD C10, FR-16/17 | File-based artifacts + Streamlit Pipeline tab |
+| Stage visibility | PRD C10, FR-16/17 | File-based artifacts + Streamlit Pipeline developer view |
 | Config-driven | PRD C9, FR-18 | YAML + `.env` loaded into typed settings; no hard-coded models or store |
 | Small corpus, low cost | PRD Section 15 | CPU embeddings, local Chroma, one LLM call per factual query |
 | Graceful failure | PRD FR-20 | Extractive fallback without LLM |
@@ -75,7 +75,7 @@ flowchart LR
     ING --> EMB[MiniLM embedder]
     EMB --> CH
     ING --> FI
-    RAW --> PIPE[Streamlit Pipeline tab]
+    RAW --> PIPE[Streamlit Pipeline developer view]
     CH --> PIPE
     TR --> PIPE
 ```
@@ -101,7 +101,7 @@ flowchart LR
 
 | Container | Responsibility | Technology | Persistence |
 |---|---|---|---|
-| Streamlit UI | Ask, answer card, source display, Pipeline tab, Sources tab, Evaluation tab | Streamlit | None; session state only |
+| Streamlit UI | Chat, inline source links, sidebar topics/status, developer views | Streamlit | None; session state only |
 | Query service | Orchestrates guardrails → retrieval → generation → validation | Python | Trace/answer JSON |
 | Ingestion CLI | Load, clean, chunk, extract facts, embed, index, validate sources | Python CLI | `data/` artifacts |
 | ChromaDB | Vector search over chunk embeddings with metadata filters | Chroma persistent client | `data/05_vector/chroma/` |
@@ -935,7 +935,7 @@ When the LLM is unavailable or validation fails, generate from the canonical fac
 | `statement_process` | First 2–3 ordered steps from the official page. |
 | `amc_overview` | The relevant AMC fact from the selected chunk. |
 
-The fallback still passes the citation resolver and sentence validator. The UI labels it “Extractive answer — LLM unavailable” and the trace records `fallback_used=true`.
+The fallback still passes the citation resolver and sentence validator. The UI shows a small “Extractive fallback was used” note under the card, the sidebar status explains the provider state, and the trace records `fallback_used=true`.
 
 ### 8.10 Refusal flow
 
@@ -980,39 +980,44 @@ If resolution fails, no answer is rendered; the service returns a no-answer with
 
 ### 9.1 Pages
 
-| Tab | Contents |
+| View | Contents |
 |---|---|
-| Ask | Welcome line, 3 example chips, form-based question box, searching spinner, answer/refusal card with compact source line, inspect-answer expander |
-| Pipeline | Stage status, source counts, chunk samples, embedding manifest, Chroma report, latest retrieval trace |
-| Sources | Registry table, status, citable flag, fetched date, purpose |
-| Evaluation | Gold-set results, metrics, failure table |
+| Chat (default) | FundFacts welcome, topic sidebar, facts-only banner, chat messages with one inline source, fixed composer |
+| Pipeline | Developer view: stage status, source counts, chunk samples, embedding manifest, Chroma report, latest retrieval trace |
+| Sources | Developer view: registry table, status, citable flag, fetched date, purpose |
+| Evaluation | Developer view: gold-set results, metrics, failure table |
 
 ### 9.2 Ask page components
 
 ```text
-Header: HDFC Mutual Fund Facts Assistant
-Welcome: Ask a factual question about ...
-Examples: [Expense ratio] [ELSS lock-in] [Capital-gains statement]
-Form: [ question input ] [Ask]   (Enter submits; chips fill and submit)
-Loading: spinner "Searching..."
-Answer card:
-  - answer text
-  - compact source line: badge + linked official source + Last updated date
-  - expander: Inspect this answer
-Sidebar: collapsible "System status" expander for corpus and LLM messages
-Footer: fixed "Facts-only. No investment advice."
+Sidebar: FundFacts shield logo (assets/logo.svg) + "FundFacts" / "Mutual fund assistant"
+         [✨ New chat]
+         4 HDFC funds | 17 Public sources
+         EXPLORE A TOPIC: nine topic pills
+         WHY TRUST IT: four checks
+         System status / Developer view (collapsed)
+
+Main:    Hero: "Mutual Fund Facts Assistant"
+                "Ask anything factual about selected HDFC Mutual Fund schemes."
+                [🔍 lock-in] [％ exit load] [🛡️ Should I invest...?]
+         Banner: gradient card with "Facts-only. No investment advice." + explanation
+         User: mint bubble, right-aligned, max 85%
+         Assistant: white card, label, answer, inline source URL, last-updated date
+         Loading: three pulsing green dots in an assistant card
+Composer: fixed st.form, 500-character input, round green ↑, disabled when empty
 ```
 
-The question input stays capped at 500 characters. PII input is blocked before retrieval and cleared after the refusal.
+The composer enforces the 500-character cap. PII is redacted by the guardrail before a pending question is rendered, and the stored turn uses `question_redacted`. Every factual answer keeps one official inline source link and the `Last updated from sources` date. The main column is capped at 768 px. The three welcome suggestions and the sidebar topics ask their question directly instead of filling the input.
 
 ### 9.3 Session state
 
-- Store only the current question (redacted if PII), current answer, and current trace ID.
+- Store every chat turn in session state only; each turn keeps a redacted question, answer, and trace ID.
+- New chat clears the transcript and returns to the welcome state.
+- No RECENT list, dark-mode state, or active-turn selection is stored.
 - No chat history persisted to disk.
 - No user identity, cookies, or login.
 - No PII fields or uploads.
-- Clear session button.
-- Corpus/index and LLM availability messages live in the sidebar status expander, not the Ask content.
+- Corpus/index and LLM availability messages live in the sidebar status expander, never in the chat column.
 
 ### 9.4 Pipeline inspector
 
@@ -1028,34 +1033,27 @@ The question input stays capped at 500 characters. PII input is blocked before r
 
 | State | UI |
 |---|---|
-| LLM missing/invalid | Banner: “Extractive mode — LLM unavailable”; answers still work |
-| Chroma missing | Banner: “Corpus not indexed”; link to setup command |
-| Low retrieval | No-answer card with AMC overview link |
-| Citation validation failure | No-answer card; trace records failure |
-| PII blocked | Refusal card; no echo of input |
-| Long question | Inline validation: “Keep it under 500 characters” |
+| LLM missing/invalid | Sidebar System status shows extractive mode; chat still answers |
+| Chroma missing | Sidebar System status shows indexing guidance; main chat stays free of setup messages |
+| Low retrieval | Assistant card labelled `Not in sources`; AMC overview link when available |
+| Citation validation failure | `Not in sources` card; trace records failure |
+| Pipeline exception | `Temporarily unavailable` card; diagnostics stay in the sidebar |
+| PII blocked | Facts-only refusal card; the redacted question is shown, never the raw value |
+| Long question | Composer enforces the 500-character cap; no live counter is shown |
 
-### 9.6 StitchWithGoogle design source of truth
+### 9.6 Lovable prototype design source of truth
 
-The canonical UI design artifact is the StitchWithGoogle export:
+The UI follows the linked Lovable prototype at `https://newai-iota-indol.vercel.app/`:
 
-```text
-design/stitch_hdfc_fund_facts_assistant.zip
-```
+- 300 px lavender sidebar with the FundFacts shield logo, `FundFacts` wordmark, `Mutual fund assistant` subtitle, `✨ New chat`, two stat cards, nine `EXPLORE A TOPIC` pills, and a `WHY TRUST IT` checklist.
+- Centered welcome hero `Mutual Fund Facts Assistant`, subtitle, three full-width suggestion buttons, and a gradient facts-only banner.
+- Chat messages use `st.chat_message` with avatars hidden: mint user bubbles on the right and white assistant cards with a status label, answer text, inline `🔗` source URL, and `Last updated from sources: YYYY-MM-DD`.
+- Fixed rounded composer with a borderless 500-character input and a round green `↑` send button; the button is disabled while the input is empty.
+- Tokens: surface `#FAF8FF`, low `#F2F3FF`, mid `#EAEDFF`, ink `#131B2E`, muted `#3C4A43`, primary `#006C4F`, accent `#00B386`, link `#005AC2`, error `#BA1A1A`; Inter body text and Plus Jakarta Sans headings.
 
-The export is the **source of truth for UI layout, spacing, typography, colors, component states, responsive behaviour, and copy hierarchy**. The Streamlit implementation must conform to it. If the export and the code disagree, the export wins and the Streamlit code is updated. The export never overrides the product’s safety rules: no PII fields, no uploads, no login, no persistent chat history, no system prompt, no hidden reasoning, and no secrets.
+The linked prototype does not include a dark-mode toggle, RECENT history, a bordered source-card expander, or copy/feedback controls. Those were removed so the Streamlit UI matches the reference. Pipeline, Sources, and Evaluation remain available from the collapsed System status expander. The custom CSS lives in one injected `st.markdown` block in `src/ui/common.py`; the Streamlit theme in `.streamlit/config.toml` matches the same palette. The prototype does not override the product safety rules: no PII inputs, no uploads, no login, no persistent chat history, no system prompt, and no secrets.
 
-Import and integration workflow:
-
-1. Place the export at `design/stitch_hdfc_fund_facts_assistant.zip` and unzip it into `design/stitch_hdfc_fund_facts_assistant/`.
-2. Read the exported screens and design notes; map each screen/component to the existing Ask, Pipeline, Sources, and Evaluation tabs.
-3. Port design tokens (colour, type, spacing, radius, shadow, breakpoints) into `src/ui/common.py`.
-4. Port component structure and states into `src/ui/ask.py`, `src/ui/pipeline.py`, `src/ui/sources.py`, and `src/ui/evaluation.py`.
-5. Verify desktop and 390 px layouts, keyboard focus, empty/error/refusal states, and the clear-session control.
-6. Confirm the safety UI rules: no PII inputs, no file upload, no login, no chat-history persistence, no system prompt, and no secrets in the browser.
-7. Record the imported export version, screenshots, and any deliberate deviations in `design/README.md` and this section.
-
-Current status: the export was not present in the workspace when this revision was written, so the Streamlit UI follows the same information architecture and safety rules but has not been pixel-aligned to the Stitch screens. The export remains required for final visual conformance.
+The older Stitch export is not required for this restyle and was not present in the workspace. AppTest and a local `streamlit run app.py` health check are the available verification steps in this environment.
 
 ---
 
@@ -1236,7 +1234,7 @@ End-to-end:
 
 - 25-question gold set — current run 25/25
 - Streamlit AppTest smoke check — passed (Ask, Pipeline, Sources, Evaluation, question input, clear-session control, no exceptions)
-- 390 px visual check — CSS breakpoint and responsive padding are present; browser screenshot remains pending
+- 380 px visual check — CSS breakpoints and responsive padding are present; browser screenshot remains unavailable
 
 ---
 
@@ -1292,7 +1290,7 @@ If hosting is unavailable:
   3. ELSS lock-in answer + source
   4. Advice refusal
   5. PII block
-  6. Pipeline tab stages
+  6. Pipeline developer view stages
 
 ---
 
@@ -1302,10 +1300,10 @@ If hosting is unavailable:
 |---|---|---|
 | Source 403/429 | Mark blocked, skip indexing | No answer for that fact; source status in Pipeline |
 | PDF parse failure | Mark `parse_failed`, do not index | No answer; manual review flag |
-| Embedding model unavailable | Ingestion fails; UI read-only | Setup banner |
-| Chroma missing/stale | No retrieval | “Corpus not indexed / rebuild required” |
-| LLM key missing | Extractive mode | “Extractive answer — LLM unavailable” |
-| LLM model invalid | Extractive mode + config error log | Same banner |
+| Embedding model unavailable | Ingestion fails; UI read-only | Setup guidance in sidebar status |
+| Chroma missing/stale | No retrieval | Indexing guidance in sidebar status; main chat stays clean |
+| LLM key missing | Extractive mode | Sidebar status; extractive answer |
+| LLM model invalid | Extractive mode + config error log | Same sidebar status |
 | LLM timeout/5xx | One retry, then extractive | Answer may be extractive |
 | Invalid JSON | One repair, then extractive | Answer may be extractive |
 | Citation invalid | No-answer | No-answer card |
@@ -1330,7 +1328,7 @@ The system must fail closed for facts: no evidence, no answer. It may fail open 
 | 4 | Chroma collection, upsert, smoke query | `05_vector/` |
 | 5 | Guardrails, router, retriever, trace | `06_retrieval/` |
 | 6 | Prompt builder, providers, validator, fallback | `07_answers/` |
-| 7 | Streamlit Ask + Pipeline + Sources + Evaluation tabs | `app.py` |
+| 7 | Streamlit chat + Pipeline/Sources/Evaluation developer views | `app.py` |
 | 8 | Gold set, eval report, README, demo | `08_eval/`, docs |
 
 The build order is intentional: each phase produces an inspectable artifact before the next phase consumes it.
@@ -1415,7 +1413,7 @@ Open decisions are tracked in [prd.md](prd.md) Section 21.
 - [ ] Query pipeline follows the fixed guardrail → router → retrieval → gate → prompt → LLM → validation → citation order.
 - [ ] No answer can render without one approved citation.
 - [ ] Extractive mode works with the LLM disabled.
-- [ ] Pipeline tab can show every stage.
+- [ ] Pipeline developer view can show every stage.
 - [ ] Config hash prevents stale/mixed collections.
 - [ ] PII is blocked before logging.
 - [ ] Gold-set evaluation runs and writes metrics.

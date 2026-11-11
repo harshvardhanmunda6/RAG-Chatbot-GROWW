@@ -1,35 +1,55 @@
-# StitchWithGoogle UI export
+# FundFacts Lovable restyle
 
-The canonical UI design for this project is:
+The UI follows the linked Lovable prototype at
+[newai-iota-indol.vercel.app](https://newai-iota-indol.vercel.app/). That
+prototype is the visual source of truth for branding, sidebar, hero, banner,
+chat messages, composer, spacing, colors, and responsive behaviour.
 
-```text
-design/stitch_hdfc_fund_facts_assistant.zip
-```
+The earlier `stitch_hdfc_fund_facts_assistant.zip` export was never present in
+the workspace and is not required for this restyle.
 
-That export is the **source of truth** for layout, spacing, typography, colors, component states, responsive behaviour, and copy hierarchy. The Streamlit implementation must follow it. If the export and the code disagree, the export wins and the Streamlit code is updated.
+## Implemented design
 
-## Status
+- Sidebar: `assets/logo.svg` shield mark, `FundFacts` wordmark, `Mutual fund
+  assistant` subtitle, `✨ New chat`, two stat cards (`HDFC funds`, `Public
+  sources`), nine topic pills under `EXPLORE A TOPIC`, and a four-line `WHY
+  TRUST IT` note.
+- Main: centered `Mutual Fund Facts Assistant` hero, subtitle, three full-width
+  suggestion buttons, and a gradient facts-only banner.
+- Chat: `st.chat_message` with avatars hidden; mint user bubbles right-aligned;
+  white assistant cards with a status label, answer text, inline `🔗` source
+  URL, and `Last updated from sources: YYYY-MM-DD`.
+- Status labels: `✓ Verified from source` (green), `🛡 Facts-only policy`
+  (red), `Not in sources` (blue), and `Temporarily unavailable` (red).
+- Loading: three pulsing green dots inside an assistant card.
+- Composer: fixed rounded `st.form`, borderless 500-character input, round green
+  `↑` send button disabled while empty, and Enter-to-submit.
+- Tokens: surface `#FAF8FF`, low `#F2F3FF`, mid `#EAEDFF`, ink `#131B2E`,
+  muted `#3C4A43`, primary `#006C4F`, accent `#00B386`, link `#005AC2`, error
+  `#BA1A1A`; Inter body text and Plus Jakarta Sans headings.
+- Pipeline, Sources, and Evaluation remain available from the collapsed
+  `System status` expander in the sidebar.
+- The linked prototype has no dark-mode toggle, RECENT history, source-card
+  expander, copy/feedback controls, or live character counter, so those were
+  removed to match it.
 
-The zip was **not present in the workspace** when this file was created. The current Streamlit UI implements the same information architecture and safety rules (Ask, Pipeline, Sources, Evaluation; no PII fields, uploads, login, persistent chat history, system prompt, hidden reasoning, or secrets), but it has not been pixel-aligned to the Stitch screens.
+## Verification
 
-To finish the integration:
+- AppTest covers startup, branding copy, the 500-character cap, suggestion and
+  topic buttons, PII redaction before display, blank submits, New chat, the
+  collapsed status/developer selector, and a source-linked answer.
+- A local `streamlit run app.py` health check returns HTTP 200.
+- Browser-driven screenshot verification is unavailable in this environment.
 
-1. Upload `stitch_hdfc_fund_facts_assistant.zip` to this directory.
-2. Unzip a working copy into `design/stitch_hdfc_fund_facts_assistant/`; keep the original zip.
-3. Review the exported screens and notes.
-4. Port design tokens into `src/ui/common.py`.
-5. Port component markup and states into `src/ui/ask.py`, `src/ui/pipeline.py`, `src/ui/sources.py`, and `src/ui/evaluation.py`.
-6. Verify desktop and 390 px layouts, including empty, no-answer, refusal, PII-block, error, and clear-session states.
-7. Record screenshots and any deliberate deviations here.
-8. Update `architecture.md` §9.6 and `implementation.md` §9.9 with the verified export version.
-
-## Safety rules that the design must preserve
+## Safety rules that the design preserves
 
 - No PAN, Aadhaar, account/folio, OTP, email, or phone input fields.
 - No file upload.
 - No login.
-- No persistent chat history.
+- No persistent chat history beyond the browser session.
 - No system prompt or hidden reasoning in the browser.
 - No secrets in the browser.
-- Always show exactly one official citation and `Last updated from sources: YYYY-MM-DD`.
-- Keep the clear-session control and the facts-only disclaimer.
+- Always show an official citation when a factual answer has one, plus the
+  last-updated date.
+- Keep the facts-only disclaimer and PII blocking.
+- Keep corpus and LLM diagnostics out of the main chat.

@@ -188,7 +188,7 @@ The cleaned sources, chunks/facts, embeddings, Chroma collection, and evaluation
 
 ```yaml
 app:
-  title: "HDFC Mutual Fund Facts Assistant"
+  title: "Mutual Fund FAQs (Facts-Only Q&A)"
   max_question_chars: 500
   max_answer_sentences: 3
   disclaimer: "Facts-only. No investment advice."
@@ -753,49 +753,65 @@ Current corpus: the five Groww seed URLs remain non-citable. Nine approved offic
 
 ## 9. UI
 
-### 9.1 Ask tab
+### 9.1 Chat page
 
 ```text
-HDFC Mutual Fund Facts Assistant
+Sidebar: FundFacts shield logo + "FundFacts" / "Mutual fund assistant"
+         [✨ New chat]
+         4 HDFC funds | 17 Public sources
+         EXPLORE A TOPIC (nine pills)
+         WHY TRUST IT (four checks)
+         System status / Developer view (collapsed)
 
-Ask a factual question about HDFC Large Cap, Flexi Cap, ELSS Tax Saver,
-Mid Cap, or HDFC Mutual Fund. I answer from public official sources and
-always show one source.
+Main:
+  Mutual Fund Facts Assistant
+  Ask anything factual about selected HDFC Mutual Fund schemes.
+  [🔍 What is the lock-in for HDFC ELSS Tax Saver?]
+  [％ What is the exit load of HDFC Flexi Cap?]
+  [🛡️ Should I invest in HDFC Mid Cap right now?]
+  Facts-only. No investment advice. Answers come from public mutual fund
+  pages with a source link. It does not recommend buying, selling, or holding
+  any scheme.
 
-[ Large Cap expense ratio ]
-[ ELSS lock-in ]
-[ Capital-gains statement ]
+Chat:
+  st.chat_message("user")      → mint bubble, right-aligned
+  st.chat_message("assistant") → white card, avatar hidden
 
-[ question input ] [Ask]     ← st.form; Enter submits
-
-Searching...                ← st.spinner while answering
-
-Sidebar → System status (collapsible): corpus/index and LLM messages
-Footer: Facts-only. No investment advice. (fixed)
+Composer (fixed bottom):
+  [ Ask about a fund... ] [↑]    ← st.form; Enter submits
 ```
 
-The three example chips fill the question input and submit the query in one click. The input keeps the 500-character cap, and PII is blocked before retrieval and cleared from the visible input after the refusal.
+The three welcome suggestions and the sidebar topics ask their question directly instead of filling the input. The form callback clears the composer and stores a pending question; the pending turn is rendered immediately with a redacted question and three pulsing green dots while the answer runs. The input keeps the 500-character cap. PII is redacted by the guardrail before the pending turn is displayed, and the stored turn uses `question_redacted`. The round send button is disabled while the input is empty via a same-origin helper iframe.
 
-### 9.2 Answer card
+### 9.2 Answer presentation
 
-- Answer, ≤3 sentences
-- Compact source line: badge + linked source title + `Last updated from sources: YYYY-MM-DD`
-- Source badge: AMC / SEBI / AMFI / Registrar
-- `Inspect this answer` expander: chunk IDs, scores, filters, validation
-- If fallback: `Extractive answer — LLM unavailable`
+- White assistant card with a status label:
+  - `fact` → `✓ Verified from source` in green
+  - `refusal` → `🛡 Facts-only policy` in red
+  - `no_answer` / `clarification` / `invalid` → `Not in sources` in blue
+  - pipeline exception → `Temporarily unavailable` in red
+- Answer text, ≤3 sentences, with preserved line breaks.
+- One inline source row: `🔗 https://...` in blue, opening in a new tab, with the source title as a tooltip.
+- `Last updated from sources: YYYY-MM-DD` below the source.
+- No bordered source-card icon, no supporting-excerpt expander, no copy or thumbs controls. The linked prototype does not include them.
+- Loading is an assistant card with three pulsing green dots, not a Streamlit spinner.
+- The transcript keeps all turns in order. New chat clears the transcript and returns to the welcome state.
 
 ### 9.3 Refusal card
 
 ```text
+🛡 Facts-only policy
 I can only share factual scheme information, not investment advice.
-For official investor education on evaluating mutual funds, see [SEBI Investor Education].
-
+For official investor education, see [SEBI Investor Education].
+🔗 https://...
 Last updated from sources: YYYY-MM-DD
 ```
 
-Performance refusal links to the official factsheet. PII refusal explains that PAN/Aadhaar/account/OTP/email/phone are not accepted. Out-of-scope returns the AMC overview link.
+PII refusal explains that PAN/Aadhaar/account/OTP/email/phone are not accepted and shows the redacted question. Out-of-scope returns the AMC overview link when available. Performance refusals link to the official factsheet.
 
-### 9.4 Pipeline tab
+### 9.4 Developer views
+
+The Pipeline, Sources, and Evaluation screens remain available from the collapsed **System status** expander in the sidebar. The default view is Chat.
 
 Show every stage:
 
@@ -815,12 +831,13 @@ Show every stage:
 - No persistent chat history.
 - No system prompt or hidden reasoning.
 - No secrets in the browser.
-- Clear-session button.
-- Mobile width works at 390 px.
+- New chat clears the transcript; there is no RECENT list or dark-mode toggle.
+- Mobile width works at 380 px; suggestions, messages, and the composer stay inside the viewport.
+- Corpus and LLM diagnostics stay in the sidebar; the main chat only shows user-facing refusal, no-answer, or temporary-unavailable copy.
 
-### 9.6 Footer disclaimer
+### 9.6 Footer and compliance copy
 
-A small fixed footer reads **“Facts-only. No investment advice.”** The full disclaimer remains in the page flow above it: answers are based on public official sources and are not a recommendation to buy, sell, or hold any scheme. Mutual fund investments are subject to market risks; read all scheme-related documents carefully.
+The gradient banner above the chat reads **“Facts-only. No investment advice.”** The full disclaimer remains in `DISCLAIMER.md`: answers are based on public official sources and are not a recommendation to buy, sell, or hold any scheme. Mutual fund investments are subject to market risks; read all scheme-related documents carefully. The linked prototype does not include a sidebar disclaimer footer, so the Streamlit sidebar omits it as well.
 
 ### 9.7 Run
 
@@ -830,37 +847,29 @@ streamlit run app.py
 
 ### 9.8 Implementation notes
 
-- `app.py` owns page config, the four top-level tabs, the sidebar status, session clearing, and the footer disclaimer.
-- `src/ui/ask.py` uses `st.form` for the question/Ask controls, so Enter and the Ask button submit the same query; example chips fill the input and submit it. It is the only tab that calls `answer_question`, shows `st.spinner("Searching...")`, stores only the current answer in session state, and never shows raw PII.
-- `.streamlit/config.toml` defines the light theme; `src/ui/common.py` owns the compact source line, sidebar status expander, and fixed facts-only footer.
+- `app.py` owns page config (`FundFacts`), the single CSS injection, the sidebar, and routing between the Chat page and the collapsed developer views.
+- `src/ui/ask.py` owns the chat page: welcome hero, suggestions, facts-only banner, all chat turns, loading dots, and the fixed `st.form` composer. It calls `answer_question`, stores every turn in session state, redacts pending questions before display, and never shows raw PII.
+- `.streamlit/config.toml` defines the lavender/green theme; `src/ui/common.py` owns the single injected CSS block, sidebar branding/stats/topics/status, `assets/logo.svg`, and the footer.
 - `src/ui/pipeline.py` reads each stage artifact directly: sources, load/clean, chunks/facts, embeddings, Chroma, retrieval, and prompt/LLM/validation.
 - `src/ui/sources.py` separates approved/citable rows from seed-only rows and shows the coverage matrix.
 - `src/ui/evaluation.py` reads `data/08_eval/` and renders a clear empty state until a gold-set run exists.
-- `src/ui/artifacts.py` contains secret-free readers; `src/ui/common.py` owns the answer card, source badge, fallback label, and footer.
-- The Pipeline tab never queries Chroma or the LLM. The Ask tab only runs the fixed guardrails → retrieval → generation → validation path.
+- `src/ui/artifacts.py` contains secret-free readers.
+- The Pipeline developer view never queries Chroma or the LLM. The Chat page only runs the fixed guardrails → retrieval → generation → validation path.
 - The system prompt is intentionally hidden; only the user/evidence prompt, prompt hash, raw provider output, and validation checks are inspectable.
 - Seed-only mode shows a persistent warning, returns `no_answer` for factual questions, and does not fake a citation.
 
-### 9.9 StitchWithGoogle design source of truth
+### 9.9 Lovable prototype design source of truth
 
-The canonical UI design is the StitchWithGoogle export stored at:
+The UI follows the linked Lovable prototype at `https://newai-iota-indol.vercel.app/`:
 
-```text
-design/stitch_hdfc_fund_facts_assistant.zip
-```
+- 300 px lavender sidebar with the FundFacts shield logo, wordmark, subtitle, New chat, two stat cards, nine topic pills, and a four-line trust note.
+- Centered hero, three suggestion buttons, gradient facts-only banner, and a 768 px chat column.
+- `st.chat_message` user/assistant presentation with avatars hidden, inline source URL, last-updated date, and pulsing-dot loading card.
+- Fixed rounded `st.form` composer with a 500-character input and round green send button.
+- Tokens: surface `#FAF8FF`, low `#F2F3FF`, mid `#EAEDFF`, ink `#131B2E`, muted `#3C4A43`, primary `#006C4F`, accent `#00B386`, link `#005AC2`, error `#BA1A1A`; Inter body text and Plus Jakarta Sans headings.
+- Pipeline, Sources, and Evaluation are retained inside the collapsed System status expander.
 
-The export is authoritative for layout, spacing, typography, colors, component states, responsive behaviour, and copy hierarchy. The Streamlit implementation must follow it; where the export and code disagree, the export wins and the code is updated. The export never overrides the safety rules: no PII fields, no uploads, no login, no persistent chat history, no system prompt, no hidden reasoning, and no secrets.
-
-Integration steps:
-
-1. Place the export at `design/stitch_hdfc_fund_facts_assistant.zip`; keep the zip and unzip a working copy into `design/stitch_hdfc_fund_facts_assistant/`.
-2. Review the exported screens and notes; map each screen/component to the Ask, Pipeline, Sources, and Evaluation tabs.
-3. Port design tokens into `src/ui/common.py` and component markup/states into `src/ui/*.py`.
-4. Verify the four tabs at desktop and 390 px, including empty, no-answer, refusal, PII-block, error, and clear-session states.
-5. Confirm no PII fields, uploads, login, chat history, system prompt, hidden reasoning, or secrets appear in the UI or browser.
-6. Record the export version, screenshots, and any deliberate deviations in `design/README.md` and this section.
-
-Current status: the export was not present in the workspace when this revision was written. The Streamlit UI implements the same information architecture and safety rules, but final pixel-level conformance to the Stitch screens remains pending until the zip is supplied.
+The custom CSS is one injected block in `src/ui/common.py`; the theme is in `.streamlit/config.toml`. The linked prototype does not include a dark-mode toggle, RECENT history, source-card expander, copy/feedback controls, or a live character counter; those were removed to match the reference. The older Stitch export is not required and was not present in the workspace. AppTest and a local health check are the available verification steps; browser-driven screenshot verification is unavailable in this environment.
 
 ---
 
@@ -1021,7 +1030,7 @@ LLM_MODEL=
 GROQ_API_KEY=
 ```
 
-Expected: factual answers still work from fact cards; UI shows “Extractive answer — LLM unavailable”.
+Expected: factual answers still work from fact cards; the sidebar status explains the provider state and the card shows a small “Extractive fallback was used” note.
 
 ---
 
@@ -1052,7 +1061,7 @@ Exit codes: `0` success, `1` validation/eval failure, `2` config error, `3` sour
 - [x] Five Groww seeds stored but non-citable.
 - [x] Four schemes + AMC covered.
 - [x] Raw, clean, chunk, fact, embedding, Chroma, retrieval, and answer artifacts exist.
-- [x] Pipeline tab shows every stage.
+- [x] Pipeline developer view shows every stage.
 - [x] Required facts are verified or explicitly missing.
 - [x] Returns/rankings/NAV removed from the corpus.
 - [x] Every answer has one approved source and a date.
@@ -1065,7 +1074,7 @@ Exit codes: `0` success, `1` validation/eval failure, `2` config error, `3` sour
 - [ ] Demo link or ≤3-minute video is ready.
 - [x] No secrets committed; `.env` is present locally and ignored.
 - [x] No synthetic PII in persisted evaluation or answer artifacts.
-- [ ] StitchWithGoogle export integrated and visually verified at 390 px.
+- [x] Lovable prototype restyle implemented and checked at 380 px in CSS/AppTest; browser screenshots unavailable.
 
 ---
 

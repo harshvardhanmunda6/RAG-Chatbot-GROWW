@@ -1,243 +1,241 @@
-"""Ask tab: one question, one answer card, one citation, and inspection."""
+"""Chat page for the FundFacts facts-only mutual fund assistant."""
 
 from __future__ import annotations
 
+import re
 from typing import Any
 
-import pandas as pd
 import streamlit as st
 
 from src.config import Settings
+from src.guardrails import check_question
 from src.service import answer_question
-from src.ui.artifacts import (
-    prompt_artifact,
-    raw_llm_artifact,
-    retrieval_artifact,
-    selected_rows,
-    trace_rows,
-    user_prompt_text,
-    validation_rows,
-)
-from src.ui.common import render_answer_card
-
-EXAMPLES = [
-    (
-        "Large Cap expense ratio",
-        "What is the expense ratio of HDFC Large Cap Fund Direct Growth?",
-    ),
-    (
-        "ELSS lock-in",
-        "What is the lock-in period for HDFC ELSS Tax Saver Fund Direct Plan Growth?",
-    ),
-    (
-        "Capital-gains statement",
-        "Where can I download a capital-gains statement?",
-    ),
-]
+from src.ui.common import SUGGESTIONS, escaped
 
 
-def _handle_pending_question() -> None:
-    if st.session_state.pop("clear_question_input", False):
-        st.session_state["question_input"] = ""
-    pending = st.session_state.pop("pending_question", None)
-    if pending:
-        st.session_state["question_input"] = pending
-        st.session_state["pending_submit"] = True
+def _safe_id(value: Any) -> str:
+    return re.sub(r"[^a-zA-Z0-9_-]", "_", str(value or "turn"))
 
 
-def _render_examples() -> None:
-    st.markdown("**Try a factual question**")
-    columns = st.columns(3)
-    for column, (label, question) in zip(columns, EXAMPLES):
-        if column.button(label, width="stretch", key=f"example_{label}"):
-            st.session_state["pending_question"] = question
-            st.rerun()
+def _redacted_question(settings: Settings, question: str) -> str:
+    guardrail = check_question(question, settings)
+    return (guardrail.redacted_question or question).strip()
 
 
-def _render_inspect(settings: Settings, response: dict[str, Any]) -> None:
-    trace_id = str(response.get("retrieval_trace_id") or response.get("trace_id") or "")
-    trace = retrieval_artifact(settings, trace_id) or {}
-    prompt = prompt_artifact(settings, trace_id)
-    raw = raw_llm_artifact(settings, trace_id)
-    answer_path = settings.path("answers") / f"{trace_id}.json"
-    trace_path = settings.path("retrieval") / f"{trace_id}.json"
+def _render_hero() -> None:
+    st.markdown(
+        """
+<div class="ff-hero">
+  <h1>Mutual Fund Facts Assistant</h1>
+  <p>Ask anything factual about selected HDFC Mutual Fund schemes.</p>
+</div>
+""",
+        unsafe_allow_html=True,
+    )
 
-    with st.expander("Inspect this answer", expanded=False):
-        retrieval_tab, validation_tab, prompt_tab, artifacts_tab = st.tabs(
-            ["Retrieval", "Validation", "Prompt & LLM", "Artifacts"]
+
+def _render_suggestions() -> None:
+    with st.container(key="ff_suggestions"):
+        for index, (label, question) in enumerate(SUGGESTIONS):
+            if st.button(label, key=f"suggestion_{index}", width="stretch"):
+                st.session_state["pending_question"] = question
+                st.rerun()
+
+
+def _render_banner() -> None:
+    st.markdown(
+        """
+<div class="ff-banner">
+  <b>Facts-only. No investment advice.</b> Answers come from public mutual fund
+  pages with a source link. It does not recommend buying, selling, or holding
+  any scheme.
+</div>
+""",
+        unsafe_allow_html=True,
+    )
+
+
+def _render_user_message(turn_id: str, question: str) -> None:
+    with st.container(key=f"ff_user_{turn_id}"):
+        with st.chat_message("user", avatar=None):
+            st.markdown(
+                f"<div class='ff-user-text'>{escaped(question)}</div>",
+                unsafe_allow_html=True,
+            )
+
+
+def _answer_label(response: dict[str, Any]) -> tuple[str, str]:
+    answer_type = str(response.get("answer_type") or "")
+    if answer_type == "fact":
+        return "answer", "✓ Verified from source"
+    if answer_type == "refusal":
+        return "refusal", "🛡 Facts-only policy"
+    if answer_type == "error":
+        return "error", "Temporarily unavailable"
+    return "not_found", "Not in sources"
+
+
+def _render_assistant_message(turn_id: str, response: dict[str, Any]) -> None:
+    label_class, label = _answer_label(response)
+    answer = str(response.get("answer") or "No answer was generated.")
+    citation = response.get("citation") or {}
+    url = str(citation.get("url") or "").strip()
+    title = str(citation.get("title") or "").strip()
+    last_updated = str(response.get("last_updated") or "").strip()
+
+    source_html = ""
+    if url.startswith("https://"):
+        source_html = (
+            f"<div class='ff-source'>🔗 <a href='{escaped(url)}' target='_blank' "
+            f"rel='noopener noreferrer' title='{escaped(title)}'>{escaped(url)}</a></div>"
         )
+    updated_html = (
+        f"<div class='ff-updated'>Last updated from sources: {escaped(last_updated)}</div>"
+        if last_updated
+        else ""
+    )
 
-        with retrieval_tab:
-            gate = trace.get("evidence_gate", {}) or {}
-            left, middle, right = st.columns(3)
-            left.metric("Intent", str(trace.get("intent", response.get("intent", "—"))))
-            middle.metric(
-                "Scheme", str(trace.get("scheme") or response.get("scheme") or "—")
+    with st.container(key=f"ff_assistant_{turn_id}"):
+        with st.chat_message("assistant", avatar=None):
+            st.markdown(
+                f"<div class='ff-label {label_class}'>{label}</div>"
+                f"<div class='ff-text'>{escaped(answer)}</div>"
+                f"{source_html}{updated_html}",
+                unsafe_allow_html=True,
             )
-            right.metric(
-                "Evidence gate",
-                "passed" if gate.get("passed") else str(gate.get("reason", "not reached")),
-            )
-            st.caption(
-                f"Fact type: `{trace.get('fact_type') or response.get('fact_type') or '—'}`"
-                f" · Selected chunks: {len(trace.get('selected', []) or [])}"
-            )
-            st.caption(f"Redacted question: {response.get('question_redacted', '—')}")
 
-            filters = trace.get("filters") or {}
-            if filters:
-                st.markdown("**Primary filters**")
-                st.json(filters)
-            attempts = trace.get("filter_attempts") or []
-            if attempts:
-                st.markdown("**Filter fallback attempts**")
-                st.dataframe(pd.DataFrame(attempts), width="stretch", hide_index=True)
 
-            candidates = trace_rows(trace)
-            if candidates:
-                st.markdown("**Candidates**")
-                st.dataframe(
-                    pd.DataFrame(candidates), width="stretch", hide_index=True
+def _render_loading() -> None:
+    with st.container(key="ff_assistant_pending"):
+        with st.chat_message("assistant", avatar=None):
+            st.markdown(
+                "<div class='ff-dots' role='status' aria-label='Checking sources'>"
+                "<span></span><span></span><span></span></div>",
+                unsafe_allow_html=True,
+            )
+
+
+def _sync_send_button() -> None:
+    st.iframe(
+        """
+<script>
+(() => {
+  const doc = window.parent.document;
+  const composer = doc.querySelector('.st-key-ff_composer');
+  if (!composer) return;
+  const input = composer.querySelector('input');
+  const button = composer.querySelector('[data-testid="stFormSubmitButton"] button');
+  if (!input || !button) return;
+  const sync = () => {
+    const empty = !input.value.trim();
+    button.disabled = empty;
+    button.setAttribute('aria-disabled', String(empty));
+    button.style.background = empty ? '#eaedff' : '#006c4f';
+    button.style.color = empty ? '#8a8fa8' : '#ffffff';
+    button.style.cursor = empty ? 'default' : 'pointer';
+  };
+  if (input._ffAbort) input._ffAbort.abort();
+  const controller = new AbortController();
+  input._ffAbort = controller;
+  input.addEventListener('input', sync, {signal: controller.signal});
+  input.addEventListener('change', sync, {signal: controller.signal});
+  sync();
+})();
+</script>
+""",
+        width=1,
+        height=1,
+        alt="Send button state",
+    )
+
+
+def _render_composer(settings: Settings, max_chars: int) -> None:
+    def _capture() -> None:
+        question = str(st.session_state.get("question_input") or "").strip()
+        st.session_state["question_input"] = ""
+        if question:
+            st.session_state["pending_question"] = question[:max_chars]
+
+    with st.container(key="ff_composer"):
+        with st.form("ask_form", clear_on_submit=False):
+            input_col, send_col = st.columns([0.92, 0.08], vertical_alignment="center")
+            with input_col:
+                st.text_input(
+                    "Ask about a fund",
+                    key="question_input",
+                    max_chars=max_chars,
+                    placeholder="Ask about a fund...",
+                    label_visibility="collapsed",
                 )
-            else:
-                st.info("No candidates were retrieved for this trace.")
-
-            selected = selected_rows(trace)
-            if selected:
-                st.markdown("**Selected evidence**")
-                for row in selected:
-                    with st.container(border=True):
-                        st.caption(
-                            f"`{row['chunk_id']}` · score {row['score']} · "
-                            f"{row['source_type']} · {row['fact_type']}"
-                        )
-                        st.write(row["text"])
-
-            checks = gate.get("checks") or []
-            if checks:
-                st.markdown("**Evidence-gate checks**")
-                st.dataframe(pd.DataFrame(checks), width="stretch", hide_index=True)
-
-        with validation_tab:
-            validation = response.get("validation", {}) or {}
-            left, middle, right = st.columns(3)
-            left.metric("Passed", "yes" if validation.get("passed") else "no")
-            middle.metric("Reason", str(validation.get("reason") or "—"))
-            right.metric("Sentences", int(validation.get("sentence_count", 0) or 0))
-            checks = validation_rows(response)
-            if checks:
-                st.dataframe(
-                    pd.DataFrame(checks), width="stretch", hide_index=True
+            with send_col:
+                submitted = st.form_submit_button(
+                    "↑",
+                    type="primary",
+                    help="Send question",
+                    width="stretch",
+                    on_click=_capture,
                 )
-            else:
-                st.info("No detailed validator checks were recorded for this response.")
-            if response.get("answer_type") == "fact":
-                st.caption(
-                    "Fact answers must resolve one approved official citation and ground "
-                    "every number in the cited chunk."
-                )
-
-        with prompt_tab:
-            st.caption(
-                f"Provider: `{response.get('provider') or '—'}` · "
-                f"Model: `{response.get('model') or '—'}` · "
-                f"Fallback: `{response.get('fallback_used')}`"
-            )
-            st.caption(f"Prompt hash: `{response.get('prompt_hash') or '—'}`")
-            if prompt:
-                st.markdown("**User prompt and evidence**")
-                st.caption("The system prompt is intentionally hidden.")
-                st.code(user_prompt_text(prompt), language="text")
-            else:
-                st.info(
-                    "No prompt artifact exists for this trace. Guardrail, clarification, "
-                    "and no-evidence paths stop before generation."
-                )
-            if raw:
-                responses = raw.get("responses", []) or []
-                if responses:
-                    st.markdown("**Latest raw provider response**")
-                    st.code(str(responses[-1]), language="text")
-                else:
-                    st.info("The provider returned no raw text.")
-            if response.get("fallback_reason"):
-                st.caption(f"Fallback reason: `{response['fallback_reason']}`")
-
-        with artifacts_tab:
-            st.markdown("**Artifact paths**")
-            st.code(
-                f"Retrieval: {trace_path}\n"
-                f"Answer:    {answer_path}\n"
-                f"Prompt:    {settings.path('answers') / (trace_id + '.prompt.txt')}\n"
-                f"Raw LLM:   {settings.path('answers') / (trace_id + '.llm_raw.json')}",
-                language="text",
-            )
-            st.caption(f"Trace ID: `{trace_id}`")
-            st.json(response)
+        if submitted and not st.session_state.get("pending_question"):
+            # Fallback for browsers that submit the form without firing the
+            # submit-button callback. The next run processes and clears it.
+            question = str(st.session_state.get("question_input") or "").strip()
+            if question:
+                st.session_state["pending_question"] = question[:max_chars]
+                st.rerun()
+        _sync_send_button()
 
 
-def _run_answer(settings: Settings, question: str) -> None:
-    with st.spinner("Searching..."):
-        try:
-            response = answer_question(question, settings)
-        except Exception:  # noqa: BLE001 - never expose a traceback or secrets in the UI
-            st.error(
-                "The answer pipeline could not complete this request. "
-                "Check the terminal logs, then inspect the Pipeline tab for the last artifact."
-            )
-            return
-    st.session_state["current_response"] = response.model_dump(mode="json")
-    st.session_state["current_question_redacted"] = response.question_redacted
-    st.session_state["current_trace_id"] = response.trace_id
-    if response.intent == "pii":
-        # Keep PII out of the visible input after the refusal is rendered once.
-        st.session_state["clear_question_input"] = True
-        st.rerun()
+def _run_answer(settings: Settings, question: str, redacted: str) -> None:
+    try:
+        response = answer_question(question, settings)
+        payload = response.model_dump(mode="json")
+        stored_question = response.question_redacted or redacted or question
+    except Exception:  # noqa: BLE001 - never expose a traceback or secrets in the UI
+        payload = {
+            "answer_type": "error",
+            "answer": "The assistant could not complete that request. Please try again.",
+        }
+        stored_question = redacted or question
+
+    history: list[dict[str, Any]] = st.session_state.setdefault("chat_history", [])
+    history.append(
+        {
+            "id": str(payload.get("trace_id") or f"error_{len(history)}"),
+            "question": stored_question,
+            "response": payload,
+        }
+    )
 
 
 def render(settings: Settings) -> None:
-    _handle_pending_question()
-
-    st.markdown("<div class='mf-kicker'>Facts-only RAG demo</div>", unsafe_allow_html=True)
-    st.title("HDFC Mutual Fund Facts Assistant")
-    st.markdown(
-        "Ask a factual question about **HDFC Large Cap**, **Flexi Cap**, "
-        "**ELSS Tax Saver**, **Mid Cap**, or **HDFC Mutual Fund**. "
-        "I answer from public official sources and always show one source."
-    )
-
-    _render_examples()
-
     max_chars = int(settings.data.get("app", {}).get("max_question_chars", 500))
-    with st.form("ask_form", clear_on_submit=False):
-        question = st.text_input(
-            "Your question",
-            key="question_input",
-            max_chars=max_chars,
-            placeholder="What is the exit load for HDFC Mid Cap Fund Direct Growth?",
-        )
-        submitted = st.form_submit_button("Ask", type="primary", width="content")
-    pending_submit = bool(st.session_state.pop("pending_submit", False))
+    pending_question = st.session_state.pop("pending_question", None)
+    if pending_question:
+        pending_question = " ".join(str(pending_question).split())[:max_chars].strip()
+        st.session_state["question_input"] = ""
 
-    if submitted or pending_submit:
-        if not question or not question.strip():
-            st.warning("Enter a question first.", icon="⚠️")
-        else:
-            _run_answer(settings, question)
+    history: list[dict[str, Any]] = st.session_state.setdefault("chat_history", [])
+    redacted = _redacted_question(settings, pending_question) if pending_question else ""
 
-    st.caption(
-        f"Questions are limited to {max_chars} characters. "
-        "PAN, Aadhaar, account numbers, OTPs, emails, and phone numbers are blocked."
-    )
+    with st.container(key="ff_chat"):
+        if not history and not pending_question:
+            with st.container(key="ff_hero_block"):
+                _render_hero()
+                _render_suggestions()
 
-    response = st.session_state.get("current_response")
-    if response:
-        st.divider()
-        st.markdown("### Current answer")
-        render_answer_card(response)
-        _render_inspect(settings, response)
-    else:
-        st.info(
-            "Ask one question to see the answer, evidence, validation, and one source link.",
-            icon="ℹ️",
-        )
+        _render_banner()
+
+        for turn in history:
+            turn_id = _safe_id(turn.get("id"))
+            _render_user_message(turn_id, str(turn.get("question") or ""))
+            _render_assistant_message(turn_id, turn.get("response") or {})
+
+        if pending_question:
+            _render_user_message("pending", redacted)
+            _render_loading()
+
+    _render_composer(settings, max_chars)
+
+    if pending_question:
+        _run_answer(settings, pending_question, redacted)
+        st.rerun()

@@ -33,7 +33,7 @@ Every factual answer has:
 | Vector store | Chroma `mf_facts_v1_bc14e60c4766` |
 | Gold set | 25 questions, **25/25 passed** |
 | Local LLM | Gemini `gemini-3.5-flash-lite` via `.env` (key not committed) |
-| UI | Streamlit: Ask, Pipeline, Sources, Evaluation |
+| UI | Streamlit: FundFacts chat, topic sidebar, inline sources, developer views |
 
 The latest evaluation is in [eval_report.md](eval_report.md); generated artifacts are in `data/08_eval/`.
 
@@ -139,16 +139,13 @@ Keep `GEMINI_API_KEY` as a Render secret. The free 512 MB plan may not have enou
 | [eval_report.md](eval_report.md) | Latest gold-set report |
 | [DISCLAIMER.md](DISCLAIMER.md) | Legal and usage disclaimer |
 
-## StitchWithGoogle UI source of truth
+## UI design reference
 
-The canonical UI design is the StitchWithGoogle export:
+The UI follows the linked Lovable prototype at [newai-iota-indol.vercel.app](https://newai-iota-indol.vercel.app/): a 300 px FundFacts sidebar with the shield logo, New chat, two stat cards, `EXPLORE A TOPIC` pills, and a `WHY TRUST IT` checklist; a centered hero with three suggestion buttons; a gradient facts-only banner; mint user bubbles and white assistant cards with an inline source URL and last-updated date; and a fixed rounded composer with a 500-character input and round green send button.
 
-```text
-design/stitch_hdfc_fund_facts_assistant.zip
-```
+The Streamlit implementation is in `app.py`, `src/ui/ask.py`, and `src/ui/common.py`; the lavender/green theme is in `.streamlit/config.toml`; the logo is `assets/logo.svg`. The linked prototype does not include a dark-mode toggle, RECENT history, source-card expander, or copy/feedback controls, so those were removed to match it. Pipeline, Sources, and Evaluation remain available through the collapsed System status expander in the sidebar. See [architecture.md](architecture.md) §9.6, [implementation.md](implementation.md) §9.9, and `design/README.md`.
 
-The export is authoritative for layout, spacing, typography, colors, component states, and responsive behaviour. The Streamlit UI must follow it. The export was **not present in the workspace** when this revision was written, so the current UI follows the same information architecture and safety rules but has not yet been pixel-aligned to the Stitch screens. See [architecture.md](architecture.md) §9.6, [implementation.md](implementation.md) §9.9, and `design/README.md` for the import workflow.
-
+The older StitchWithGoogle export was never present in the workspace and is not required for the restyle.
 ## Limitations
 
 - Local demo only; no hosted public link or recording is included.
@@ -173,5 +170,5 @@ data/06_retrieval/      Retrieval traces
 data/07_answers/        Answer artifacts
 data/08_eval/           Gold set, results, metrics, report
 tests/                  Unit and integration tests
-design/                 StitchWithGoogle export location
+design/                 Lovable restyle notes
 ```
