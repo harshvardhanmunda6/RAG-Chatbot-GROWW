@@ -141,7 +141,7 @@ Keep `GEMINI_API_KEY` as a Render secret. The free 512 MB plan may not have enou
 
 ## UI design reference
 
-The UI follows the linked Lovable prototype at [newai-iota-indol.vercel.app](https://newai-iota-indol.vercel.app/): a 300 px FundFacts sidebar with the shield logo, New chat, two stat cards, `EXPLORE A TOPIC` pills, and a `WHY TRUST IT` checklist; a centered hero with three suggestion buttons; a gradient facts-only banner; mint user bubbles and white assistant cards with an inline source URL and last-updated date; and a fixed rounded composer with a 500-character input and round green send button.
+The UI follows the linked Lovable prototype at (insert link): a 300 px FundFacts sidebar with the shield logo, New chat, two stat cards, `EXPLORE A TOPIC` pills, and a `WHY TRUST IT` checklist; a centered hero with three suggestion buttons; a gradient facts-only banner; mint user bubbles and white assistant cards with an inline source URL and last-updated date; and a fixed rounded composer with a 500-character input and round green send button.
 
 The Streamlit implementation is in `app.py`, `src/ui/ask.py`, and `src/ui/common.py`; the lavender/green theme is in `.streamlit/config.toml`; the logo is `assets/logo.svg`. The linked prototype does not include a dark-mode toggle, RECENT history, source-card expander, or copy/feedback controls, so those were removed to match it. Pipeline, Sources, and Evaluation remain available through the collapsed System status expander in the sidebar. See [architecture.md](architecture.md) §9.6, [implementation.md](implementation.md) §9.9, and `design/README.md`.
 
